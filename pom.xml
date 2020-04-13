@@ -11,6 +11,7 @@
 
     <modules>
         <module>nhood-engine-service-app</module>
+        <module>nhood-engine-service-svc</module>
     </modules>
 
 </project>
