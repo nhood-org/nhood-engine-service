@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>nhood-engine-service</artifactId>
-    <groupId>org.example</groupId>
+    <groupId>org.h8.nh</groupId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
 
@@ -13,5 +13,23 @@
         <module>nhood-engine-service-app</module>
         <module>nhood-engine-service-svc</module>
     </modules>
+
+    <properties>
+        <java.version>11</java.version>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.3</version>
+                <configuration>
+                    <source>11</source>
+                    <target>11</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
