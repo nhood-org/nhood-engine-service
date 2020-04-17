@@ -1,4 +1,4 @@
-package com.h8.nh.service.app.svc.dto;
+package com.h8.nh.service.port.webflux;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

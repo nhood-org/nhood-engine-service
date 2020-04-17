@@ -1,4 +1,4 @@
-package com.h8.nh.service.app.svc.configuration;
+package com.h8.nh.service.springboot.configuration;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.config.EnableWebFlux;

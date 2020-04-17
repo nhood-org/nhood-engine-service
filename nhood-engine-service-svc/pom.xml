@@ -3,14 +3,11 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<name>nhood-engine-service-svc</name>
-	<groupId>com.h8.nh</groupId>
 	<artifactId>nhood-engine-service-svc</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
 
 	<parent>
-		<artifactId>nhood-engine-service</artifactId>
 		<groupId>org.h8.nh</groupId>
+		<artifactId>nhood-engine-service</artifactId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
 
@@ -32,6 +29,13 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>org.h8.nh</groupId>
+			<artifactId>nhood-engine-service-ports</artifactId>
+			<version>1.0-SNAPSHOT</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
@@ -45,12 +49,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 			<scope>runtime</scope>
-			<optional>true</optional>
-		</dependency>
-
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
 
