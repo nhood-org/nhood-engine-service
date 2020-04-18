@@ -6,7 +6,7 @@
 
     <groupId>org.h8.nh</groupId>
     <artifactId>nhood-engine-service</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <modules>
