@@ -8,7 +8,7 @@
 	<parent>
 		<groupId>org.h8.nh</groupId>
 		<artifactId>nhood-engine-service</artifactId>
-		<version>1.0-SNAPSHOT</version>
+		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 
 	<properties>
@@ -31,7 +31,7 @@
 		<dependency>
 			<groupId>org.h8.nh</groupId>
 			<artifactId>nhood-engine-service-ports</artifactId>
-			<version>1.0-SNAPSHOT</version>
+			<version>0.0.1-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 
@@ -76,6 +76,13 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
