@@ -26,7 +26,7 @@ class FindClosestDataControllerTest {
 	private ClosestDataFinderWebFluxAdapter fluxAdapter;
 
 	@Test
-	public void shouldFindClosestDataById() {
+	void shouldFindClosestDataById() {
 		var id = 1;
 		var dto = new ClosestDataDTO(id);
 		Mono<ClosestDataDTO> mono = Mono.just(dto);
