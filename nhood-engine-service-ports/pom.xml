@@ -12,6 +12,10 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
+    <properties>
+        <reactor-core.version>3.3.4.RELEASE</reactor-core.version>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.h8.nh</groupId>
@@ -23,7 +27,7 @@
         <dependency>
             <groupId>io.projectreactor</groupId>
             <artifactId>reactor-core</artifactId>
-            <version>3.3.4.RELEASE</version>
+            <version>${reactor-core.version}</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>
