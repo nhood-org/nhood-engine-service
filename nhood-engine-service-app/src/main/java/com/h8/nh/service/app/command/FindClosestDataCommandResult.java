@@ -1,9 +1,8 @@
 package com.h8.nh.service.app.command;
 
+import java.util.Objects;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-
-import java.util.Objects;
 
 @Data
 @AllArgsConstructor
@@ -12,8 +11,12 @@ public class FindClosestDataCommandResult {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         FindClosestDataCommandResult that = (FindClosestDataCommandResult) o;
         return id == that.id;
     }
