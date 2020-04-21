@@ -1,6 +1,6 @@
 package com.h8.nh.service.springboot.controller;
 
-import com.h8.nh.service.port.webflux.ClosestDataDTO;
+import com.h8.nh.service.port.webflux.ClosestData;
 import com.h8.nh.service.port.webflux.ClosestDataFinder;
 import com.h8.nh.service.port.webflux.ClosestDataFinderException;
 import org.springframework.http.HttpStatus;
@@ -19,7 +19,7 @@ public class FindClosestDataController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity<Mono<ClosestDataDTO>> findById(@PathVariable("id") Integer id) {
+    public ResponseEntity<Mono<ClosestData>> findById(@PathVariable("id") Integer id) {
         try {
             var e = finder.findByID(id);
             return new ResponseEntity<>(e, HttpStatus.OK);

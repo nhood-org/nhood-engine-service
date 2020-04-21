@@ -1,6 +1,6 @@
 package com.h8.nh.service.springboot;
 
-import com.h8.nh.service.port.webflux.ClosestDataDTO;
+import com.h8.nh.service.port.webflux.ClosestData;
 import com.h8.nh.service.port.webflux.ClosestDataFinderWebFluxAdapter;
 import com.h8.nh.service.springboot.controller.FindClosestDataController;
 import org.hamcrest.Matchers;
@@ -28,8 +28,8 @@ class FindClosestDataControllerTest {
 	@Test
 	void shouldFindClosestDataById() {
 		var id = 1;
-		var dto = new ClosestDataDTO(id);
-		Mono<ClosestDataDTO> mono = Mono.just(dto);
+		var dto = new ClosestData(id);
+		Mono<ClosestData> mono = Mono.just(dto);
 
 		Mockito.when(fluxAdapter.findByID(id)).thenReturn(mono);
 
@@ -38,8 +38,8 @@ class FindClosestDataControllerTest {
 				.accept(MediaType.APPLICATION_JSON)
 				.exchange()
 				.expectStatus().isOk()
-				.expectBody(ClosestDataDTO.class)
-				.value(ClosestDataDTO::getId, Matchers.equalTo(id));
+				.expectBody(ClosestData.class)
+				.value(ClosestData::getId, Matchers.equalTo(id));
 
 		Mockito.verify(fluxAdapter, Mockito.times(1)).findByID(id);
 	}

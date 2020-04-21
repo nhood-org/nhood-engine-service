@@ -14,7 +14,7 @@ class FindClosestDataCommandHandlerTest {
 
         var id = new Random().nextInt();
         var cmd = new FindClosestDataCommand(id);
-        var result = finder.Handle(cmd);
+        var result = finder.handle(cmd);
 
         var expectedResult = new FindClosestDataCommandResult(id);
         assertThat(result).isEqualTo(expectedResult);
