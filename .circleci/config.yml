@@ -2,14 +2,11 @@
 #
 # Check https://circleci.com/docs/2.0/language-java/ for more details
 #
-defaults: &defaults
-  docker:
-    - image: circleci/openjdk:11-jdk
-
 version: 2
 jobs:
   build:
-    <<: *defaults
+    docker:
+      - image: circleci/openjdk:11-jdk
     steps:
       - checkout
       - restore_cache:
@@ -22,9 +19,19 @@ jobs:
           key: m2-cache-v0.1
           paths:
           - "$HOME/.m2"
+  build-docker:
+    machine: true
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+          - m2-cache-v0.1
+      - run: mvn -s .circleci.settings.xml clean install
+      - run: docker build -t nhood-org/nhood-engine-service:$CIRCLE_BRANCH .
 
 workflows:
   version: 2
   build-deploy:
     jobs:
       - build
+      - build-docker
