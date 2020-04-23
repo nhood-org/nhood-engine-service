@@ -3,22 +3,27 @@
 # Check https://circleci.com/docs/2.0/language-java/ for more details
 #
 version: 2
+
+defaults: &defaults
+  docker:
+    - image: circleci/openjdk:8-jdk
+
 jobs:
   build:
-    docker:
-      - image: circleci/openjdk:11-jdk
+    <<: *defaults
     steps:
       - checkout
       - restore_cache:
           keys:
           - m2-cache-v0.1
-      - run: mvn -s .circleci.settings.xml clean install
+      - run: mvn -s .mvn.settings.xml clean install
       - store_test_results:
           path: target/surefire-reports
       - save_cache:
           key: m2-cache-v0.1
           paths:
           - "$HOME/.m2"
+
   build-docker:
     machine: true
     steps:
@@ -26,8 +31,26 @@ jobs:
       - restore_cache:
           keys:
           - m2-cache-v0.1
-      - run: mvn -s .circleci.settings.xml clean install
-      - run: docker build -t nhood-org/nhood-engine-service:$CIRCLE_BRANCH .
+      - run: mvn -s .mvn.settings.xml clean install
+      - run: >
+          docker build -t nhood-org/nhood-engine-service:$CIRCLE_BRANCH \
+            --build-arg GITHUB_USERNAME=$GITHUB_USERNAME \
+            --build-arg GITHUB_TOKEN=$GITHUB_TOKEN \
+            --build-arg MVN_LOCAL_REPOSITORY=$HOME/.m2 .
+
+  deploy:
+    <<: *defaults
+    steps:
+      - checkout
+      - run: mvn -s .mvn.settings.xml deploy -DskipTests
+
+  release:
+    <<: *defaults
+    steps:
+      - checkout
+      - run: git config --global user.email "$GITHUB_EMAIL"
+      - run: git config --global user.name "$GITHUB_USERNAME"
+      - run: mvn -s .mvn.settings.xml -B release:prepare -Darguments="-DskipTests"
 
 workflows:
   version: 2
@@ -35,3 +58,9 @@ workflows:
     jobs:
       - build
       - build-docker
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
