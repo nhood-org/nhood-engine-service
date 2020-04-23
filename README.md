@@ -12,6 +12,7 @@ Project is continuously integrated with `circleCi` pipeline that link to which m
 Pipeline is fairly simple:
 
 1. Build and test project with a set of jdk `11`.
+1. Build docker image.
 
 Configuration of CI is implemented in `.circleci/config.yml`.
 
