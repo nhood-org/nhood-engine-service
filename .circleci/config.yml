@@ -34,8 +34,7 @@ jobs:
       - run: >
           docker build -t nhood-org/nhood-engine-service:$CIRCLE_BRANCH \
             --build-arg GITHUB_USERNAME=$GITHUB_USERNAME \
-            --build-arg GITHUB_TOKEN=$GITHUB_TOKEN \
-            --build-arg MVN_LOCAL_REPOSITORY=$HOME/.m2 .
+            --build-arg GITHUB_TOKEN=$GITHUB_TOKEN  .
 
   deploy:
     <<: *defaults
