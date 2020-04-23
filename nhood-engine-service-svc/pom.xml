@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<artifactId>nhood-engine-service-svc</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -19,7 +19,7 @@
 		<dependency>
 			<groupId>org.h8.nh</groupId>
 			<artifactId>nhood-engine-service-ports</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>0.0.1</version>
 			<scope>compile</scope>
 		</dependency>
 
@@ -78,4 +78,8 @@
 		</plugins>
 	</build>
 
+
+  <scm>
+    <tag>v0.0.1</tag>
+  </scm>
 </project>
