@@ -22,6 +22,19 @@
 		</repository>
 	</repositories>
 	
+	<distributionManagement>
+		<snapshotRepository>
+			<id>internal.repo</id>
+			<name>Temporary Staging Repository</name>
+			<url>file://${project.build.directory}/mvn-repo</url>
+		</snapshotRepository>
+		<repository>
+			<id>github</id>
+			<name>GitHub nhood-org Apache Maven Packages</name>
+			<url>https://maven.pkg.github.com/nhood-org/repository</url>
+		</repository>
+	</distributionManagement>
+	
 	<dependencies>
 		<dependency>
 			<groupId>org.h8.nh</groupId>
