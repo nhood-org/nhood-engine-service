@@ -1,4 +1,5 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Version](https://img.shields.io/badge/version-0.0.3-blue.svg?maxAge=2592000)](https://github.com/nhood-org/nhood-engine-service/releases/tag/v0.0.3)
 [![CircleCI](https://circleci.com/gh/nhood-org/nhood-engine-service.svg?style=shield)](https://circleci.com/gh/nhood-org/nhood-engine-service)
 
 # nhood-engine-service
