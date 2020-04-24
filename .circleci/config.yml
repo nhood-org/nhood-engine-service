@@ -16,7 +16,7 @@ jobs:
       - restore_cache:
           keys:
           - m2-cache-v0.1
-      - run: mvn -s .mvn.settings.xml clean install
+      - run: make build-ci
       - store_test_results:
           path: target/surefire-reports
       - save_cache:
@@ -28,36 +28,25 @@ jobs:
     machine: true
     steps:
       - checkout
-      - run: >
-          docker build -t nhood-org/nhood-engine-service:$CIRCLE_BRANCH \
-            --build-arg GITHUB_USERNAME=$GITHUB_USERNAME \
-            --build-arg GITHUB_TOKEN=$GITHUB_TOKEN  .
+      - run: make build-docker-ci
 
   deploy:
     <<: *defaults
     steps:
       - checkout
-      - run: mvn -s .mvn.settings.xml deploy -DskipTests
+      - run: make deploy-ci
 
   release:
     <<: *defaults
     steps:
       - checkout
-      - run: git config --global user.email "$GITHUB_EMAIL"
-      - run: git config --global user.name "$GITHUB_USERNAME"
-      - run: mvn -s .mvn.settings.xml -B release:prepare -Darguments="-DskipTests"
+      - run: make release-ci
 
   release-docker:
     machine: true
     steps:
       - checkout
-      - run: >
-          docker build -t nhood-org/nhood-engine-service:$CIRCLE_BRANCH \
-            --build-arg GITHUB_USERNAME=$GITHUB_USERNAME \
-            --build-arg GITHUB_TOKEN=$GITHUB_TOKEN  .
-      - run: docker login docker.pkg.github.com -u $$GITHUB_USERNAME -p $GITHUB_TOKEN
-      - run: docker tag nhood-org/nhood-engine-service:$CIRCLE_BRANCH docker.pkg.github.com/nhood-org/repository/nhood-engine-service:$VERSION
-      - run: docker push docker.pkg.github.com/nhood-org/repository/nhood-engine-service:$VERSION
+      - run: make release-docker-ci
 
 workflows:
   version: 2
