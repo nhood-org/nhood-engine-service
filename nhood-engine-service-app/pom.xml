@@ -7,7 +7,7 @@
     <parent>
         <groupId>org.h8.nh</groupId>
         <artifactId>nhood-engine-service</artifactId>
-        <version>0.0.4-SNAPSHOT</version>
+        <version>0.0.4</version>
     </parent>
 
 </project>
