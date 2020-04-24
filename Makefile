@@ -43,8 +43,8 @@ release-ci:
 	@test $(GITHUB_EMAIL) || ( echo "GITHUB_EMAIL not set" & exit 3 )
 	@echo "Releasing maven artifacts [CI]:"
 	git config --global user.email ${GITHUB_EMAIL} && \
-    git config --global user.name ${GITHUB_USERNAME} && \
-    mvn -s .mvn.settings.xml -B release:prepare -Darguments="-DskipTests"
+	git config --global user.name ${GITHUB_USERNAME} && \
+	mvn -s .mvn.settings.xml -B release:prepare -Darguments="-DskipTests"
 	@echo "...done"
 
 .PHONY: build-docker
@@ -67,7 +67,7 @@ build-docker-ci:
 	@echo "Building docker image [CI]:"
 	docker build -t nhood-org/${ARTIFACT_NAME}:${CIRCLE_BRANCH} \
 		--build-arg GITHUB_USERNAME=${GITHUB_USERNAME} \
-        --build-arg GITHUB_TOKEN=${GITHUB_TOKEN} .
+		--build-arg GITHUB_TOKEN=${GITHUB_TOKEN} .
 	@echo "...done"
 
 .PHONY: release-docker-ci
@@ -79,8 +79,8 @@ release-docker-ci: build-docker-ci
 	@test $(VERSION) || ( echo "VERSION not set" & exit 5 )
 	@echo "Releasing docker image [CI]:"
 	docker login docker.pkg.github.com -u ${GITHUB_USERNAME} -p ${GITHUB_TOKEN} && \
-    docker tag nhood-org/${ARTIFACT_NAME}:${CIRCLE_BRANCH} docker.pkg.github.com/nhood-org/repository/${ARTIFACT_NAME}:${VERSION} && \
-    docker push docker.pkg.github.com/nhood-org/repository/${ARTIFACT_NAME}:${VERSION}
+	docker tag nhood-org/${ARTIFACT_NAME}:${CIRCLE_BRANCH} docker.pkg.github.com/nhood-org/repository/${ARTIFACT_NAME}:${VERSION} && \
+	docker push docker.pkg.github.com/nhood-org/repository/${ARTIFACT_NAME}:${VERSION}
 	@echo "...done"
 
 .PHONY: run
@@ -104,7 +104,7 @@ trigger-circle-ci-maven-release:
 	@echo "Triggering docker release:"
 	curl -u ${CIRCLE_CI_USER_TOKEN}: \
 		-d build_parameters[CIRCLE_JOB]=release \
-    	https://circleci.com/api/v1.1/project/github/nhood-org/${ARTIFACT_NAME}/tree/master
+    		https://circleci.com/api/v1.1/project/github/nhood-org/${ARTIFACT_NAME}/tree/master
 	@echo "...done"
 
 .PHONY: trigger-circle-ci-docker-release
@@ -114,7 +114,7 @@ trigger-circle-ci-docker-release:
 	@test $(NEW_VERSION) || ( echo "NEW_VERSION not set" & exit 3 )
 	@echo "Triggering docker release:"
 	curl -u ${CIRCLE_CI_USER_TOKEN}: \
-        -d build_parameters[CIRCLE_JOB]=release-docker \
-        -d build_parameters[VERSION]=${NEW_VERSION} \
-        https://circleci.com/api/v1.1/project/github/nhood-org/${ARTIFACT_NAME}/tree/master
+		-d build_parameters[CIRCLE_JOB]=release-docker \
+		-d build_parameters[VERSION]=${NEW_VERSION} \
+		https://circleci.com/api/v1.1/project/github/nhood-org/${ARTIFACT_NAME}/tree/master
 	@echo "...done"
