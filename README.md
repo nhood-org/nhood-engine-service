@@ -7,6 +7,10 @@
 
 A stand-alone nhood engine application
 
+## Build, test, run
+
+Use pre-defined Makefile tasks
+
 ## CI/CD
 
 Project is continuously integrated with `circleCi` pipeline that link to which may be found [here](https://circleci.com/gh/nhood-org/workflows/nhood-engine-service)
@@ -23,18 +27,16 @@ Configuration of CI is implemented in `.circleci/config.yml`.
 In order to release version of maven artifacts, send the following API request to circleCI:
 
 ```bash
-curl -u $CIRCLE_CI_USER_TOKEN: \
-    -d build_parameters[CIRCLE_JOB]=release \
-    https://circleci.com/api/v1.1/project/github/nhood-org/nhood-engine-service/tree/master
+export CIRCLE_CI_USER_TOKEN=<CIRCLE_CI_USER_TOKEN>
+make trigger-circle-ci-maven-release
 ```
 
 In order to release version of docker image, send the following API request to circleCI:
 
 ```bash
-curl -u $CIRCLE_CI_USER_TOKEN: \
-    -d build_parameters[CIRCLE_JOB]=release-docker \
-    -d build_parameters[VERSION]=<NEW_VERSION> \
-    https://circleci.com/api/v1.1/project/github/nhood-org/nhood-engine-service/tree/master
+export CIRCLE_CI_USER_TOKEN=<CIRCLE_CI_USER_TOKEN>
+export NEW_VERSION=<NEW_VERSION> 
+make trigger-circle-ci-docker-release
 ```
 
 Both artifacts and docker image will be available [here](https://github.com/orgs/nhood-org/packages)
