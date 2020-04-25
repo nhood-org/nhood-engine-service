@@ -34,7 +34,7 @@ jobs:
     machine: true
     steps:
       - checkout
-      - run: make run-acceptance-tests
+      - run: make run-acceptance-tests-ci
 
   deploy:
     <<: *defaults

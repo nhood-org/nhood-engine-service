@@ -98,9 +98,17 @@ run-docker: build-docker
 	@echo "...done"
 
 .PHONY: run-acceptance-tests
-run-acceptance-tests: build-docker
-	@test $(ARTIFACT_NAME) || ( echo "ARTIFACT_NAME not set" & exit 1 )
+run-acceptance-tests:
 	@echo "Running acceptance tests:"
+	docker-compose up --exit-code-from tests
+	@echo "...done"
+
+.PHONY: run-acceptance-tests-ci
+run-acceptance-tests-ci: build-docker
+	@test $(GITHUB_USERNAME) || ( echo "GITHUB_USERNAME not set" & exit 1 )
+	@test $(GITHUB_TOKEN) || ( echo "GITHUB_TOKEN not set" & exit 2 )
+	@echo "Running acceptance tests [CI]:"
+	docker login docker.pkg.github.com -u ${GITHUB_USERNAME} -p ${GITHUB_TOKEN} && \
 	docker-compose up --exit-code-from tests
 	@echo "...done"
 
