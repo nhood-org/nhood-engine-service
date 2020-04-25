@@ -20,4 +20,6 @@ EXPOSE 8080
 WORKDIR /usr/src/nhood-org/
 COPY --from=build /usr/src/nhood-org/nhood-engine-service-svc/target/nhood-engine-service-svc.jar ./app/
 
+HEALTHCHECK CMD wget -q --method=GET localhost:8080/actuator/health
+
 CMD java -jar ./app/nhood-engine-service-svc.jar

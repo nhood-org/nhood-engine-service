@@ -30,6 +30,12 @@ jobs:
       - checkout
       - run: make build-docker-ci
 
+  run-acceptance-tests:
+    machine: true
+    steps:
+      - checkout
+      - run: make run-acceptance-tests-ci
+
   deploy:
     <<: *defaults
     steps:
@@ -54,6 +60,7 @@ workflows:
     jobs:
       - build
       - build-docker
+      - run-acceptance-tests
       - deploy:
           requires:
             - build
