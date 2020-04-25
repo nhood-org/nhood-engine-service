@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  engine:
+    image: nhood-org/nhood-engine-service:local
+    ports:
+      - 8080:8080
+    restart: "no"
+  tests:
+    image: docker.pkg.github.com/nhood-org/repository/nhood-engine-service-tests:v0.0.2
+    environment:
+      - TEST_TARGET_HOST=engine:8080
+    depends_on:
+      - engine
+    restart: "no"
+    command: bash -c "sleep 5s && make run"

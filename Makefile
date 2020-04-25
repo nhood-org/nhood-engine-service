@@ -97,6 +97,13 @@ run-docker: build-docker
 	docker run -d -p 8080:8080 nhood-org/${ARTIFACT_NAME}:local
 	@echo "...done"
 
+.PHONY: run-acceptance-tests
+run-acceptance-tests: build-docker
+	@test $(ARTIFACT_NAME) || ( echo "ARTIFACT_NAME not set" & exit 1 )
+	@echo "Running acceptance tests:"
+	docker-compose up --exit-code-from tests
+	@echo "...done"
+
 .PHONY: trigger-circle-ci-maven-release
 trigger-circle-ci-maven-release:
 	@test $(ARTIFACT_NAME) || ( echo "ARTIFACT_NAME not set" & exit 1 )
