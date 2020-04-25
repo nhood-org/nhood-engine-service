@@ -19,6 +19,7 @@ Pipeline is fairly simple:
 
 1. Build and test project with a set of jdk `11`.
 1. Build docker image.
+1. Run [acceptance tests](https://github.com/nhood-org/nhood-engine-service-tests)
 
 Configuration of CI is implemented in `.circleci/config.yml`.
 
