@@ -11,7 +11,7 @@ import reactor.core.publisher.Mono;
 @RestController
 public class FindClosestDataController {
 
-    private ClosestDataFinder finder;
+    private final ClosestDataFinder finder;
 
     public FindClosestDataController(ClosestDataFinder finder) {
         this.finder = finder;

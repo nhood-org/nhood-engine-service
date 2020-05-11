@@ -1,4 +1,4 @@
-package com.h8.nh.service.app.command;
+package com.h8.nh.service.app.query;
 
 import java.util.Objects;
 import lombok.AllArgsConstructor;
@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class FindClosestDataCommandResult {
+public class FindClosestDataQueryResult {
     private int id;
 
     @Override
@@ -17,7 +17,7 @@ public class FindClosestDataCommandResult {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        FindClosestDataCommandResult that = (FindClosestDataCommandResult) o;
+        FindClosestDataQueryResult that = (FindClosestDataQueryResult) o;
         return id == that.id;
     }
 

@@ -1,4 +1,4 @@
-package com.h8.nh.service.app.command;
+package com.h8.nh.service.app.query;
 
 import org.junit.jupiter.api.Test;
 
@@ -6,17 +6,17 @@ import java.util.Random;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class FindClosestDataCommandHandlerTest {
+class FindClosestDataQueryHandlerTest {
 
     @Test
     void shouldHandleCommand() {
-        var finder = new FindClosestDataCommandHandler();
+        var finder = new FindClosestDataQueryHandler();
 
         var id = new Random().nextInt();
-        var cmd = new FindClosestDataCommand(id);
+        var cmd = new FindClosestDataQuery(id);
         var result = finder.handle(cmd);
 
-        var expectedResult = new FindClosestDataCommandResult(id);
+        var expectedResult = new FindClosestDataQueryResult(id);
         assertThat(result).isEqualTo(expectedResult);
     }
 }
