@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class FindClosestDataQueryResult {
+public class NoopFindClosestDataQueryResult {
     private int id;
 
     @Override
@@ -17,7 +17,7 @@ public class FindClosestDataQueryResult {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        FindClosestDataQueryResult that = (FindClosestDataQueryResult) o;
+        NoopFindClosestDataQueryResult that = (NoopFindClosestDataQueryResult) o;
         return id == that.id;
     }
 

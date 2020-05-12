@@ -5,6 +5,6 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class FindClosestDataQuery {
+public class NoopFindClosestDataQuery {
     private int id;
 }
