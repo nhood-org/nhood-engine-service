@@ -1,17 +1,17 @@
 package com.h8.nh.service.port.webflux;
 
-import com.h8.nh.service.app.command.FindClosestDataCommand;
-import com.h8.nh.service.app.command.FindClosestDataCommandHandler;
+import com.h8.nh.service.app.query.FindClosestDataQuery;
+import com.h8.nh.service.app.query.FindClosestDataQueryHandler;
 import reactor.core.publisher.Mono;
 
 public class ClosestDataFinderWebFluxAdapter implements ClosestDataFinder {
 
-    private FindClosestDataCommandHandler finder = new FindClosestDataCommandHandler();
+    private final FindClosestDataQueryHandler finder = new FindClosestDataQueryHandler();
 
     @Override
     public Mono<ClosestData> findByID(int id) {
-        var cmd = new FindClosestDataCommand(id);
-        var result = finder.handle(cmd);
+        var query = new FindClosestDataQuery(id);
+        var result = finder.handle(query);
         return Mono.just(new ClosestData(result.getId()));
     }
 }
