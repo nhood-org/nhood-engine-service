@@ -10,8 +10,8 @@ public class ClosestDataFinderWebFluxAdapter implements ClosestDataFinder {
 
     @Override
     public Mono<ClosestData> findByID(int id) {
-        var cmd = new FindClosestDataQuery(id);
-        var result = finder.handle(cmd);
+        var query = new FindClosestDataQuery(id);
+        var result = finder.handle(query);
         return Mono.just(new ClosestData(result.getId()));
     }
 }
