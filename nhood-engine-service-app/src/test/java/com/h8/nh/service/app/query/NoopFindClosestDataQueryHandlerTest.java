@@ -6,7 +6,7 @@ import java.util.Random;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class NoopNoopFindClosestDataQueryHandlerTest {
+class NoopFindClosestDataQueryHandlerTest {
 
     @Test
     void shouldHandleCommand() {
