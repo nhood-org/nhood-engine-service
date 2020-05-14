@@ -8,11 +8,11 @@ import java.util.List;
 
 public class EngineDataFinderImpl implements EngineDataFinder {
 
-    private final EngineDataRepository engineDataRepository;
-
-    public EngineDataFinderImpl(EngineDataRepository engineDataRepository) {
-        this.engineDataRepository = engineDataRepository;
-    }
+//    private final EngineDataRepository engineDataRepository;
+//
+//    public EngineDataFinderImpl(EngineDataRepository engineDataRepository) {
+//        this.engineDataRepository = engineDataRepository;
+//    }
 
     @Override
     public List<DataFinderResult<EngineDataResourceKey, EngineData>> find(DataFinderCriteria<EngineDataResourceKey> dataFinderCriteria) throws DataFinderFailedException {
