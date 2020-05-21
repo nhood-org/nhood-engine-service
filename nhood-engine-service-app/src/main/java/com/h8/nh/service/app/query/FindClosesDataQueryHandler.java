@@ -14,6 +14,7 @@ public class FindClosesDataQueryHandler {
         var result = new int[]{};
 
         // TODO: just some fake usage of engine data finder
+        // remove when used in real implementation
         var foo = engineDataFinder.hashCode();
         System.out.println(foo);
 

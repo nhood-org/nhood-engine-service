@@ -19,7 +19,8 @@ public class EngineDataFinderImpl implements EngineDataFinder {
     public List<DataFinderResult<EngineDataResourceKey, EngineData>> find(DataFinderCriteria<EngineDataResourceKey> dataFinderCriteria)
             throws DataFinderFailedException {
 
-        // TODO: just some fake usage of engine data finder
+        // TODO: just some fake usage of engine data repository
+        // remove when used in real implementation
         var foo = engineDataRepository.hashCode();
         System.out.println(foo);
 
