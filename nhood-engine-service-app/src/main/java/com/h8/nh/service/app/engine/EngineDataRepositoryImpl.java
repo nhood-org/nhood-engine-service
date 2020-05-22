@@ -30,7 +30,6 @@ public class EngineDataRepositoryImpl implements EngineDataRepository {
     @Override
     public DataMatrixResourceIterator<EngineDataResourceKey, EngineData> findNeighbours(EngineDataResourceKey engineDataResourceKey)
             throws DataMatrixRepositoryFailedException {
-        DataMatrixCellIterator.startWith(engineDataResourceKey.unified(), this.cell);
-        return null;
+        return DataMatrixCellIterator.startWith(engineDataResourceKey.unified(), this.cell);
     }
 }

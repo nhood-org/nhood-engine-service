@@ -8,6 +8,12 @@ import com.h8.nh.nhoodengine.core.impl.DataScoreComputationEngine;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
 public class FindClosestDataQueryHandlerTest {
 
     @Test
@@ -24,7 +30,9 @@ public class FindClosestDataQueryHandlerTest {
         var handler = new FindClosesDataQueryHandler(new EngineDataFinderImpl(new DataScoreComputationEngine(repository)));
         var query = new FindClosestDataQuery(10);
         var result = handler.handle(query);
-        System.out.println(result);
-
+        
+        Collections.sort(result.getValues());
+        var expectedNeighbours = Arrays.asList(8,9,10,11,12);
+        assertThat(result.getValues()).isEqualTo(expectedNeighbours);
     }
 }
