@@ -1,35 +1,33 @@
 package com.h8.nh.service.app.engine;
 
 import com.h8.nh.nhoodengine.core.DataResource;
+import com.h8.nh.nhoodengine.matrix.DataMatrixRepository;
 import com.h8.nh.nhoodengine.matrix.DataMatrixRepositoryFailedException;
 import com.h8.nh.nhoodengine.matrix.DataMatrixResourceIterator;
-import com.h8.nh.nhoodengine.matrix.impl.model.DataMatrixCell;
-import com.h8.nh.nhoodengine.matrix.impl.model.DataMatrixCellConfiguration;
-import com.h8.nh.nhoodengine.matrix.impl.model.DataMatrixCellFactory;
-import com.h8.nh.nhoodengine.matrix.impl.model.DataMatrixCellIterator;
+import com.h8.nh.nhoodengine.matrix.impl.DataMatrixCellBasedRepository;
 
 public class EngineDataRepositoryImpl implements EngineDataRepository {
-    private final int metadataSize;
-    private final DataMatrixCell<DataResource<EngineDataResourceKey, EngineData>> cell;
+
+    private final DataMatrixRepository<EngineDataResourceKey, EngineData> repository;
 
     public EngineDataRepositoryImpl(int metadataSize) {
-        this.metadataSize = metadataSize;
-        this.cell = DataMatrixCellFactory.root(metadataSize, DataMatrixCellConfiguration.builder().build());
+        this.repository = new DataMatrixCellBasedRepository<>(metadataSize);
     }
 
     @Override
     public int getMetadataSize() {
-        return this.metadataSize;
+        return this.repository.getMetadataSize();
     }
 
     @Override
-    public void add(DataResource<EngineDataResourceKey, EngineData> dataResource) throws DataMatrixRepositoryFailedException {
-        cell.add(dataResource);
+    public void add(DataResource<EngineDataResourceKey, EngineData> dataResource)
+            throws DataMatrixRepositoryFailedException {
+        repository.add(dataResource);
     }
 
     @Override
     public DataMatrixResourceIterator<EngineDataResourceKey, EngineData> findNeighbours(EngineDataResourceKey engineDataResourceKey)
             throws DataMatrixRepositoryFailedException {
-        return DataMatrixCellIterator.startWith(engineDataResourceKey.unified(), this.cell);
+        return this.repository.findNeighbours(engineDataResourceKey);
     }
 }

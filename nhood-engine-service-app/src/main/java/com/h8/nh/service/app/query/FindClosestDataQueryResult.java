@@ -1,35 +1,26 @@
 package com.h8.nh.service.app.query;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
-import java.util.List;
-import java.util.Objects;
+import java.util.Arrays;
+
 
 @Data
-@AllArgsConstructor
+@EqualsAndHashCode
 public class FindClosestDataQueryResult {
-    private final List<Integer> values;
+    private final int[] results;
 
-    @Override
-    public String toString() {
-        StringBuilder stringBuilder = new StringBuilder();
-        values.forEach(val -> stringBuilder.append(val + ", "));
-        return "FindClosestDataQueryResult{" +
-                "values=" + stringBuilder.toString() +
-                '}';
+    public FindClosestDataQueryResult(int[] results) {
+        this.results = copyArray(results);
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        FindClosestDataQueryResult that = (FindClosestDataQueryResult) o;
-        return values.equals(that.values);
+    public int[] getResults() {
+        return copyArray(this.results);
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(values);
+    private int[] copyArray(int[] a) {
+        return Arrays.copyOf(a, a.length);
     }
+
 }

@@ -7,4 +7,5 @@ import lombok.Data;
 @AllArgsConstructor
 public class FindClosestDataQuery {
     private int data;
+    private int resultSize;
 }

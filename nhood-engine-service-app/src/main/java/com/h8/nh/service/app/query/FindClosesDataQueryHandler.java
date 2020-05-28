@@ -19,13 +19,14 @@ public class FindClosesDataQueryHandler {
 
         DataFinderCriteria<EngineDataResourceKey> criteria =
                 DataFinderCriteria.<EngineDataResourceKey>builder()
-                .limit(5)
+                .limit(query.getResultSize())
                 .metadata(new EngineDataResourceKey(query.getData()))
                 .build();
         var results = engineDataFinder.find(criteria);
-        return new FindClosestDataQueryResult(results
-                                                .stream()
-                                                .map(val -> val.getResource().getData().getValue())
-                                                .collect(Collectors.toList()));
+        int[] result = results
+                .stream()
+                .mapToInt(val -> val.getResource().getData().getValue())
+                .toArray();
+        return new FindClosestDataQueryResult(result);
     }
 }
