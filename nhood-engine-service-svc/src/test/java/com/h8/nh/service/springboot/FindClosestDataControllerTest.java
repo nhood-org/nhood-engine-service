@@ -27,8 +27,9 @@ class FindClosestDataControllerTest {
 
 	@Test
 	void shouldFindClosestDataById() {
-		var id = 1;
-		var dto = new ClosestData(id);
+		var id = 3;
+		var expectedValues = new int[]{ 1,2,3,4,5 };
+		var dto = new ClosestData(expectedValues);
 		Mono<ClosestData> mono = Mono.just(dto);
 
 		Mockito.when(fluxAdapter.findByID(id)).thenReturn(mono);
@@ -39,7 +40,7 @@ class FindClosestDataControllerTest {
 				.exchange()
 				.expectStatus().isOk()
 				.expectBody(ClosestData.class)
-				.value(ClosestData::getId, Matchers.equalTo(id));
+				.value(ClosestData::getData, Matchers.equalTo(expectedValues));
 
 		Mockito.verify(fluxAdapter, Mockito.times(1)).findByID(id);
 	}

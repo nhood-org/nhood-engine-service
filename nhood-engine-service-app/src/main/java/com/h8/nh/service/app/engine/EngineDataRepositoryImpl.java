@@ -22,12 +22,16 @@ public class EngineDataRepositoryImpl implements EngineDataRepository {
     @Override
     public void add(DataResource<EngineDataResourceKey, EngineData> dataResource)
             throws DataMatrixRepositoryFailedException {
-        repository.add(dataResource);
+            repository.add(dataResource);
     }
 
     @Override
-    public DataMatrixResourceIterator<EngineDataResourceKey, EngineData> findNeighbours(EngineDataResourceKey engineDataResourceKey)
-            throws DataMatrixRepositoryFailedException {
-        return this.repository.findNeighbours(engineDataResourceKey);
+    public DataMatrixResourceIterator<EngineDataResourceKey, EngineData> findNeighbours(EngineDataResourceKey engineDataResourceKey) {
+        try {
+            return this.repository.findNeighbours(engineDataResourceKey);
+        } catch (DataMatrixRepositoryFailedException e) {
+            System.out.println(e);
+            return null;
+        }
     }
 }

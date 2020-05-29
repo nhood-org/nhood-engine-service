@@ -16,7 +16,7 @@ public class EngineDataFinderImpl implements EngineDataFinder {
 
     private final DataFinder<EngineDataResourceKey, EngineData> finder;
 
-    public EngineDataFinderImpl(EngineDataRepository repository ) {
+    public EngineDataFinderImpl(EngineDataRepository repository) {
         this.finder = new DataScoreComputationEngine(repository);
     }
 
