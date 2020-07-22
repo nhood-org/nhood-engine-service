@@ -6,5 +6,5 @@ import lombok.Data;
 @AllArgsConstructor
 @Data
 public class EngineData {
-    int value;
+    String id;
 }

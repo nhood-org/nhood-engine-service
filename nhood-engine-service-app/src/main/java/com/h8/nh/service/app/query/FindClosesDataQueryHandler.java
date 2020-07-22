@@ -1,9 +1,12 @@
 package com.h8.nh.service.app.query;
 
-import com.h8.nh.nhoodengine.core.DataFinderCriteria;
-import com.h8.nh.nhoodengine.core.DataFinderFailedException;
+import com.h8.nh.service.app.engine.EngineData;
 import com.h8.nh.service.app.engine.EngineDataFinder;
+import com.h8.nh.service.app.engine.EngineDataFinderFailedException;
 import com.h8.nh.service.app.engine.EngineDataResourceKey;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class FindClosesDataQueryHandler {
 
@@ -13,24 +16,23 @@ public class FindClosesDataQueryHandler {
         this.engineDataFinder = engineDataFinder;
     }
 
-    public FindClosestDataQueryResult handle(FindClosestDataQuery query) {
-
+    public FindClosestDataQueryResult handle(FindClosestDataQuery query)
+            throws FindClosesDataQueryHandlerFailedException {
+        var key = new EngineDataResourceKey(query.getKey());
         try {
-            DataFinderCriteria<EngineDataResourceKey> criteria =
-                DataFinderCriteria.<EngineDataResourceKey>builder()
-                        .limit(query.getResultSize())
-                        .metadata(new EngineDataResourceKey(query.getData()))
-                        .build();
-            var results = engineDataFinder.find(criteria);
-            int[] result = results
-                    .stream()
-                    .mapToInt(val -> val.getResource().getData().getValue())
-                    .toArray();
-            return new FindClosestDataQueryResult(result);
-
-        } catch (DataFinderFailedException e) {
-            System.out.println(e);
-            return null;
+            var foundData = engineDataFinder.find(key, query.getResultSize());
+            return mapResultFrom(foundData);
+        } catch (EngineDataFinderFailedException e) {
+            throw new FindClosesDataQueryHandlerFailedException(
+                    "could not find data for given key", e);
         }
+    }
+
+    private FindClosestDataQueryResult mapResultFrom(List<EngineData> data) {
+        var results = data
+                .stream()
+                .map(EngineData::getId)
+                .collect(Collectors.toList());
+        return new FindClosestDataQueryResult(results);
     }
 }

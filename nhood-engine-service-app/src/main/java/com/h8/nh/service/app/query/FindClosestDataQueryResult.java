@@ -1,26 +1,18 @@
 package com.h8.nh.service.app.query;
 
-import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.util.Arrays;
+import java.util.List;
 
-
-@Data
 @EqualsAndHashCode
 public class FindClosestDataQueryResult {
-    private final int[] results;
+    private final List<String> results;
 
-    public FindClosestDataQueryResult(int[] results) {
-        this.results = copyArray(results);
+    public FindClosestDataQueryResult(List<String> results) {
+        this.results = List.copyOf(results);
     }
 
-    public int[] getResults() {
-        return copyArray(this.results);
+    public List<String> getResults() {
+        return List.copyOf(results);
     }
-
-    private int[] copyArray(int[] a) {
-        return Arrays.copyOf(a, a.length);
-    }
-
 }

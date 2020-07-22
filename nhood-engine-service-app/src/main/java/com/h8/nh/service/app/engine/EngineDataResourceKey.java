@@ -1,23 +1,19 @@
 package com.h8.nh.service.app.engine;
 
-import com.h8.nh.nhoodengine.core.DataResourceKey;
-import jdk.jshell.spi.ExecutionControl;
+import lombok.EqualsAndHashCode;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 
-public class EngineDataResourceKey implements DataResourceKey {
+@EqualsAndHashCode
+public class EngineDataResourceKey {
+    private final BigDecimal[] key;
 
-    public static final int METADATA_SIZE = 1;
-    private final int value;
-
-    public EngineDataResourceKey(int value) {
-        this.value = value;
+    public EngineDataResourceKey(BigDecimal[] key) {
+        this.key = Arrays.copyOf(key, key.length);
     }
 
-    @Override
-    public BigDecimal[] unified() {
-        BigDecimal[] bd = new BigDecimal[METADATA_SIZE];
-        bd[0] = new BigDecimal(value);
-        return bd;
+    public BigDecimal[] getKey() {
+        return Arrays.copyOf(key, key.length);
     }
 }

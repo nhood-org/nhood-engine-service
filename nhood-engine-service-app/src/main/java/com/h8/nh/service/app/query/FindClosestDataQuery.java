@@ -1,11 +1,25 @@
 package com.h8.nh.service.app.query;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.EqualsAndHashCode;
 
-@Data
-@AllArgsConstructor
+import java.math.BigDecimal;
+import java.util.Arrays;
+
+@EqualsAndHashCode
 public class FindClosestDataQuery {
-    private int data;
-    private int resultSize;
+    private final BigDecimal[] key;
+    private final int resultSize;
+
+    public FindClosestDataQuery(BigDecimal[] key, int resultSize) {
+        this.key = Arrays.copyOf(key, key.length);
+        this.resultSize = resultSize;
+    }
+
+    public BigDecimal[] getKey() {
+        return Arrays.copyOf(key, key.length);
+    }
+
+    public int getResultSize() {
+        return resultSize;
+    }
 }
