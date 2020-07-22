@@ -1,6 +1,8 @@
 package com.h8.nh.service.app.engine;
 
-import com.h8.nh.nhoodengine.core.DataFinder;
+import java.util.List;
 
-public interface EngineDataFinder extends DataFinder<EngineDataResourceKey, EngineData> {
+public interface EngineDataFinder {
+    List<EngineData> find(EngineDataResourceKey key, int limit)
+            throws EngineDataFinderFailedException;
 }

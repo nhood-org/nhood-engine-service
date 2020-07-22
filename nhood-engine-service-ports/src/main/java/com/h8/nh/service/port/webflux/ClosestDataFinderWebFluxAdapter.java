@@ -6,12 +6,14 @@ import reactor.core.publisher.Mono;
 
 public class ClosestDataFinderWebFluxAdapter implements ClosestDataFinder {
 
-    private final NoopFindClosestDataQueryHandler finder = new NoopFindClosestDataQueryHandler();
+    private final NoopFindClosestDataQueryHandler handler = new NoopFindClosestDataQueryHandler();
+
+    public ClosestDataFinderWebFluxAdapter() {}
 
     @Override
     public Mono<ClosestData> findByID(int id) {
         var query = new NoopFindClosestDataQuery(id);
-        var result = finder.handle(query);
+        var result = handler.handle(query);
         return Mono.just(new ClosestData(result.getId()));
     }
 }

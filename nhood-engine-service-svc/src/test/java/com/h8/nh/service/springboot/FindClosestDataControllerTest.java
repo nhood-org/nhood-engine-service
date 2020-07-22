@@ -29,6 +29,7 @@ class FindClosestDataControllerTest {
 	void shouldFindClosestDataById() {
 		var id = 1;
 		var dto = new ClosestData(id);
+
 		Mono<ClosestData> mono = Mono.just(dto);
 
 		Mockito.when(fluxAdapter.findByID(id)).thenReturn(mono);
