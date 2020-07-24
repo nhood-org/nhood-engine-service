@@ -4,4 +4,7 @@ public class EngineDataFinderFailedException extends Exception {
     public EngineDataFinderFailedException(String message) {
         super(message);
     }
+    public EngineDataFinderFailedException(String message, Throwable cause) {
+        super(message, cause);
+    }
 }

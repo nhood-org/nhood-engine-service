@@ -14,4 +14,30 @@
     <properties>
         <nhood-engine.version>0.0.4</nhood-engine.version>
     </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.h8.nh</groupId>
+            <artifactId>nhood-engine-core</artifactId>
+            <version>${nhood-engine.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.h8.nh</groupId>
+            <artifactId>nhood-engine-core-api</artifactId>
+            <version>${nhood-engine.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.h8.nh</groupId>
+            <artifactId>nhood-engine-matrix-api</artifactId>
+            <version>${nhood-engine.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.h8.nh</groupId>
+            <artifactId>nhood-engine-matrix</artifactId>
+            <version>${nhood-engine.version}</version>
+        </dependency>
+    </dependencies>
 </project>

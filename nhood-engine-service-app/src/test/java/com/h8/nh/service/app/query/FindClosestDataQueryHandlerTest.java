@@ -3,7 +3,6 @@ package com.h8.nh.service.app.query;
 import com.h8.nh.service.app.engine.EngineData;
 import com.h8.nh.service.app.engine.EngineDataFinder;
 import com.h8.nh.service.app.engine.EngineDataFinderFailedException;
-import com.h8.nh.service.app.engine.EngineDataResourceKey;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -19,18 +18,17 @@ public class FindClosestDataQueryHandlerTest {
     @Test
     void shouldReturnClosestPoints()
             throws EngineDataFinderFailedException, FindClosesDataQueryHandlerFailedException {
-        var queryKey = new BigDecimal[]{new BigDecimal("0")};
+        var queryKey = new BigDecimal[]{};
         var queryResultSize = 4;
 
         var engine = mock(EngineDataFinder.class);
-        var engineDataKey = new EngineDataResourceKey(queryKey);
         var engineData = Arrays.asList(
-                new EngineData("ID_1"),
-                new EngineData("ID_2"),
-                new EngineData("ID_3"),
-                new EngineData("ID_4")
+                EngineData.of("ID_1", new BigDecimal[]{}),
+                EngineData.of("ID_2", new BigDecimal[]{}),
+                EngineData.of("ID_3", new BigDecimal[]{}),
+                EngineData.of("ID_4", new BigDecimal[]{})
         );
-        when(engine.find(engineDataKey, queryResultSize))
+        when(engine.find(queryKey, queryResultSize))
                 .thenReturn(engineData);
 
         var handler = new FindClosesDataQueryHandler(engine);
@@ -45,13 +43,12 @@ public class FindClosestDataQueryHandlerTest {
     @Test
     void shouldThrowException()
             throws EngineDataFinderFailedException {
-        var queryKey = new BigDecimal[]{new BigDecimal("0")};
+        var queryKey = new BigDecimal[]{};
         var queryResultSize = 4;
 
         var engine = mock(EngineDataFinder.class);
-        var engineDataKey = new EngineDataResourceKey(queryKey);
         var engineException = new EngineDataFinderFailedException("MOCKED ERROR");
-        when(engine.find(engineDataKey, queryResultSize))
+        when(engine.find(queryKey, queryResultSize))
                 .thenThrow(engineException);
 
         var handler = new FindClosesDataQueryHandler(engine);
