@@ -5,5 +5,5 @@ import java.util.List;
 
 public interface EngineDataFinder {
     List<EngineData> find(BigDecimal[] key, int limit)
-            throws EngineDataFinderFailedException;
+            throws EngineDataFinderException;
 }

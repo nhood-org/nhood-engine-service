@@ -4,7 +4,7 @@ import com.h8.nh.nhoodengine.core.DataResource;
 import com.h8.nh.nhoodengine.matrix.DataMatrixRepositoryFailedException;
 import com.h8.nh.nhoodengine.matrix.impl.DataMatrixCellBasedRepository;
 import com.h8.nh.service.app.engine.EngineData;
-import com.h8.nh.service.app.engine.EngineDataFinderFailedException;
+import com.h8.nh.service.app.engine.EngineDataFinderException;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -15,7 +15,7 @@ public class EngineDataFinderImplTest {
 
     @Test
     void shouldReturnClosestFromInjectedRepository()
-            throws DataMatrixRepositoryFailedException, EngineDataFinderFailedException {
+            throws DataMatrixRepositoryFailedException, EngineDataFinderException {
         var testDataSize = 3;
         var testData = new EngineData[]{
                 testEngineData("ID_0", 0,0,0),
