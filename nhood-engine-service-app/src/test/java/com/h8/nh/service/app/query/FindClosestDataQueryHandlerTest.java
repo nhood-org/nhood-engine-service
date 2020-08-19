@@ -2,7 +2,7 @@ package com.h8.nh.service.app.query;
 
 import com.h8.nh.service.app.engine.EngineData;
 import com.h8.nh.service.app.engine.EngineDataFinder;
-import com.h8.nh.service.app.engine.EngineDataFinderFailedException;
+import com.h8.nh.service.app.engine.EngineDataFinderException;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -17,7 +17,7 @@ public class FindClosestDataQueryHandlerTest {
 
     @Test
     void shouldReturnClosestPoints()
-            throws EngineDataFinderFailedException, FindClosesDataQueryHandlerFailedException {
+            throws EngineDataFinderException, FindClosesDataQueryHandlerException {
         var queryKey = new BigDecimal[]{};
         var queryResultSize = 4;
 
@@ -42,12 +42,12 @@ public class FindClosestDataQueryHandlerTest {
 
     @Test
     void shouldThrowException()
-            throws EngineDataFinderFailedException {
+            throws EngineDataFinderException {
         var queryKey = new BigDecimal[]{};
         var queryResultSize = 4;
 
         var engine = mock(EngineDataFinder.class);
-        var engineException = new EngineDataFinderFailedException("MOCKED ERROR");
+        var engineException = new EngineDataFinderException("MOCKED ERROR");
         when(engine.find(queryKey, queryResultSize))
                 .thenThrow(engineException);
 
@@ -55,7 +55,7 @@ public class FindClosestDataQueryHandlerTest {
 
         var query = new FindClosestDataQuery(queryKey, queryResultSize);
         assertThatThrownBy(() -> handler.handle(query))
-                .isInstanceOf(FindClosesDataQueryHandlerFailedException.class)
+                .isInstanceOf(FindClosesDataQueryHandlerException.class)
                 .hasMessage("could not find data for given key")
                 .hasCause(engineException);
     }

@@ -7,7 +7,7 @@ import com.h8.nh.nhoodengine.core.impl.DataScoreComputationEngine;
 import com.h8.nh.nhoodengine.matrix.DataMatrixRepository;
 import com.h8.nh.service.app.engine.EngineData;
 import com.h8.nh.service.app.engine.EngineDataFinder;
-import com.h8.nh.service.app.engine.EngineDataFinderFailedException;
+import com.h8.nh.service.app.engine.EngineDataFinderException;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -23,7 +23,7 @@ public class EngineDataFinderImpl implements EngineDataFinder {
 
     @Override
     public List<EngineData> find(BigDecimal[] key, int limit)
-            throws EngineDataFinderFailedException {
+            throws EngineDataFinderException {
         var criteria = DataFinderCriteria.<EngineDataResourceKey>builder()
                 .metadata(EngineDataResourceKey.of(key))
                 .limit(limit)
@@ -34,7 +34,7 @@ public class EngineDataFinderImpl implements EngineDataFinder {
                     .map(r -> r.getResource().getData())
                     .collect(Collectors.toList());
         } catch (DataFinderFailedException e) {
-            throw new EngineDataFinderFailedException(
+            throw new EngineDataFinderException(
                     "could not get result data from the negine", e);
         }
     }

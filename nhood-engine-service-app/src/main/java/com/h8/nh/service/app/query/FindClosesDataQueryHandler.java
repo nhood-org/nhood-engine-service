@@ -2,7 +2,7 @@ package com.h8.nh.service.app.query;
 
 import com.h8.nh.service.app.engine.EngineData;
 import com.h8.nh.service.app.engine.EngineDataFinder;
-import com.h8.nh.service.app.engine.EngineDataFinderFailedException;
+import com.h8.nh.service.app.engine.EngineDataFinderException;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,12 +16,12 @@ public class FindClosesDataQueryHandler {
     }
 
     public FindClosestDataQueryResult handle(FindClosestDataQuery query)
-            throws FindClosesDataQueryHandlerFailedException {
+            throws FindClosesDataQueryHandlerException {
         try {
             var foundData = engineDataFinder.find(query.getKey(), query.getResultSize());
             return mapResultFrom(foundData);
-        } catch (EngineDataFinderFailedException e) {
-            throw new FindClosesDataQueryHandlerFailedException(
+        } catch (EngineDataFinderException e) {
+            throw new FindClosesDataQueryHandlerException(
                     "could not find data for given key", e);
         }
     }
