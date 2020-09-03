@@ -12,7 +12,7 @@
     </parent>
 
     <properties>
-        <nhood-engine.version>0.0.4</nhood-engine.version>
+        <nhood-engine.version>0.0.5</nhood-engine.version>
     </properties>
 
     <dependencies>
