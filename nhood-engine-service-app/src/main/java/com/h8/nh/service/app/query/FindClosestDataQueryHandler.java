@@ -7,21 +7,21 @@ import com.h8.nh.service.app.engine.EngineDataFinderException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class FindClosesDataQueryHandler {
+public class FindClosestDataQueryHandler implements FindClosestDataQueryHandlerAPI {
 
     private final EngineDataFinder engineDataFinder;
 
-    public FindClosesDataQueryHandler(EngineDataFinder engineDataFinder) {
+    public FindClosestDataQueryHandler(EngineDataFinder engineDataFinder) {
         this.engineDataFinder = engineDataFinder;
     }
 
     public FindClosestDataQueryResult handle(FindClosestDataQuery query)
-            throws FindClosesDataQueryHandlerException {
+            throws FindClosestDataQueryHandlerException {
         try {
             var foundData = engineDataFinder.find(query.getKey(), query.getResultSize());
             return mapResultFrom(foundData);
         } catch (EngineDataFinderException e) {
-            throw new FindClosesDataQueryHandlerException(
+            throw new FindClosestDataQueryHandlerException(
                     "could not find data for given key", e);
         }
     }

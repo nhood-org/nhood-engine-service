@@ -4,7 +4,7 @@ import com.h8.nh.service.app.engine.EngineData;
 import com.h8.nh.service.app.engine.EngineDataRepository;
 import com.h8.nh.service.app.engine.EngineDataRepositoryException;
 
-public class AddDataCommandHandler {
+public class AddDataCommandHandler implements AddDataCommandHandlerAPI {
 
     private final EngineDataRepository repository;
 
