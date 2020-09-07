@@ -17,7 +17,7 @@ public class FindClosestDataQueryHandlerTest {
 
     @Test
     void shouldReturnClosestPoints()
-            throws EngineDataFinderException, FindClosesDataQueryHandlerException {
+            throws EngineDataFinderException, FindClosestDataQueryHandlerException {
         var queryKey = new BigDecimal[]{};
         var queryResultSize = 4;
 
@@ -31,7 +31,7 @@ public class FindClosestDataQueryHandlerTest {
         when(engine.find(queryKey, queryResultSize))
                 .thenReturn(engineData);
 
-        var handler = new FindClosesDataQueryHandler(engine);
+        var handler = new FindClosestDataQueryHandler(engine);
 
         var query = new FindClosestDataQuery(queryKey, queryResultSize);
         var result = handler.handle(query);
@@ -51,11 +51,11 @@ public class FindClosestDataQueryHandlerTest {
         when(engine.find(queryKey, queryResultSize))
                 .thenThrow(engineException);
 
-        var handler = new FindClosesDataQueryHandler(engine);
+        var handler = new FindClosestDataQueryHandler(engine);
 
         var query = new FindClosestDataQuery(queryKey, queryResultSize);
         assertThatThrownBy(() -> handler.handle(query))
-                .isInstanceOf(FindClosesDataQueryHandlerException.class)
+                .isInstanceOf(FindClosestDataQueryHandlerException.class)
                 .hasMessage("could not find data for given key")
                 .hasCause(engineException);
     }
