@@ -20,7 +20,7 @@ public class AddDataRequestHandlerWebFluxAdapter implements AddDataRequestHandle
             app.handle(cmd);
             return Mono.just(data);
         } catch (AddDataCommandHandlerException e) {
-            throw new WebFluxAPIException("could not execute application add-data command", e);
+            throw new WebFluxAPIException("Could not execute application add-data command", e);
         }
     }
 }

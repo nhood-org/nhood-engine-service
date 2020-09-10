@@ -14,9 +14,9 @@ public class FindDataRequestHandlerWebFluxAdapter implements FindDataRequestHand
     }
 
     public Flux<EngineDataDTO> find(EngineDataDTO data, int size)
-            throws WebFluxAPIException {
+            throws WebFluxAPIException, WebFluxAPIBadRequestException {
         if (size <= 0) {
-            throw new WebFluxAPIException("requested data size must be positive");
+            throw new WebFluxAPIBadRequestException("Requested data size must be positive");
         }
 
         var query = new FindClosestDataQuery(data.getBigDecimalKey(), size);
@@ -27,7 +27,7 @@ public class FindDataRequestHandlerWebFluxAdapter implements FindDataRequestHand
                     .map(r -> EngineDataDTO.from(r.getId(), r.getKey()));
             return Flux.fromStream(resultStream);
         } catch (FindClosestDataQueryHandlerException e) {
-            throw new WebFluxAPIException("could not execute application find-closest-data query", e);
+            throw new WebFluxAPIException("Could not execute application find-closest-data query", e);
         }
     }
 }

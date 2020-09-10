@@ -43,26 +43,26 @@ public class HTTPController {
     @ResponseBody
     public ResponseEntity<Mono<EngineDataDTO>> addData(
             @RequestBody EngineDataDTO data
-    ) {
-        try {
-            var e = addDataRequestHandler.add(data);
-            return new ResponseEntity<>(e, HttpStatus.OK);
-        } catch (WebFluxAPIException e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+    ) throws WebFluxAPIException {
+        var e = addDataRequestHandler.add(data);
+        return new ResponseEntity<>(e, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/data/find", method = RequestMethod.POST)
+    @RequestMapping(value = "/find", method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<Flux<EngineDataDTO>> findClosestData(
             @RequestBody EngineDataDTO data,
             @RequestParam Integer size
-    ) {
-        try {
-            var e = findDataRequestHandler.find(data, size);
-            return new ResponseEntity<>(e, HttpStatus.OK);
-        } catch (WebFluxAPIException ex) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    ) throws WebFluxAPIException, WebFluxAPIBadRequestException {
+        var e = findDataRequestHandler.find(data, size);
+        return new ResponseEntity<>(e, HttpStatus.OK);
+    }
+
+    @ExceptionHandler({ Exception.class })
+    public ResponseEntity<String> handleException(Exception e) {
+        if (e instanceof WebFluxAPIBadRequestException) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
