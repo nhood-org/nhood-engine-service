@@ -12,7 +12,7 @@ public class EngineData {
 
     private EngineData(String id, BigDecimal[] key) {
         this.id = id;
-        this.key = key;
+        this.key = Arrays.copyOf(key, key.length);
     }
 
     public static EngineData of(String id, BigDecimal[] key) {

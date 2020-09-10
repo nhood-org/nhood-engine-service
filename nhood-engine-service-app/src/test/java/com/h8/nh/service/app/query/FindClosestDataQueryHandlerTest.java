@@ -37,6 +37,7 @@ public class FindClosestDataQueryHandlerTest {
         var result = handler.handle(query);
 
         assertThat(result.getResults())
+                .extracting("id")
                 .containsExactlyInAnyOrder("ID_1", "ID_2", "ID_3", "ID_4");
     }
 

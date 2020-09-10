@@ -1,8 +1,9 @@
-package com.h8.nh.service.springboot;
+package com.h8.nh.service.springboot.http;
 
+import com.h8.nh.service.port.webflux.AddDataRequestHandler;
 import com.h8.nh.service.port.webflux.ClosestData;
 import com.h8.nh.service.port.webflux.ClosestDataFinderWebFluxAdapter;
-import com.h8.nh.service.springboot.controller.FindClosestDataController;
+import com.h8.nh.service.port.webflux.FindDataRequestHandler;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,14 +17,20 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Mono;
 
 @ExtendWith(SpringExtension.class)
-@WebFluxTest(FindClosestDataController.class)
-class FindClosestDataControllerTest {
+@WebFluxTest(HTTPController.class)
+class HTTPControllerTest {
 
 	@Autowired
 	WebTestClient webTestClient;
 
 	@MockBean
 	private ClosestDataFinderWebFluxAdapter fluxAdapter;
+
+	@MockBean
+	private AddDataRequestHandler addDataRequestHandler;
+
+	@MockBean
+	private FindDataRequestHandler findDataRequestHandler;
 
 	@Test
 	void shouldFindClosestDataById() {
