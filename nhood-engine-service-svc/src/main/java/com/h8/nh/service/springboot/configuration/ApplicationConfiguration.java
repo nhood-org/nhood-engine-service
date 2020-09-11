@@ -10,11 +10,6 @@ import org.springframework.context.annotation.Configuration;
 public class ApplicationConfiguration {
 
     @Bean
-    public ClosestDataFinder ClosestDataFinder() {
-        return new ClosestDataFinderWebFluxAdapter();
-    }
-
-    @Bean
     public AppAPI AppAPI() {
         return new DefaultAppAPI();
     }

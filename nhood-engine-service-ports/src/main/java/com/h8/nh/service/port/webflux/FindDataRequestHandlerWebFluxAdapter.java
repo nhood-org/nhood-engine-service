@@ -14,11 +14,7 @@ public class FindDataRequestHandlerWebFluxAdapter implements FindDataRequestHand
     }
 
     public Flux<EngineDataDTO> find(EngineDataDTO data, int size)
-            throws WebFluxAPIException, WebFluxAPIBadRequestException {
-        if (size <= 0) {
-            throw new WebFluxAPIBadRequestException("Requested data size must be positive");
-        }
-
+            throws WebFluxAPIException {
         var query = new FindClosestDataQuery(data.getBigDecimalKey(), size);
         try {
             var result = app.handle(query);

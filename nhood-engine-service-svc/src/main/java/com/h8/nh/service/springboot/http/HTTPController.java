@@ -10,33 +10,15 @@ import reactor.core.publisher.Mono;
 @RestController
 public class HTTPController {
 
-    private final ClosestDataFinder finder;
-
     private final AddDataRequestHandler addDataRequestHandler;
-
     private final FindDataRequestHandler findDataRequestHandler;
 
     public HTTPController(
-            ClosestDataFinder finder,
             AddDataRequestHandler addDataRequestHandler,
             FindDataRequestHandler findDataRequestHandler
     ) {
-        this.finder = finder;
         this.addDataRequestHandler = addDataRequestHandler;
         this.findDataRequestHandler = findDataRequestHandler;
-    }
-
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    @ResponseBody
-    public ResponseEntity<Mono<ClosestData>> findById(
-            @PathVariable("id") Integer id
-    ) {
-        try {
-            var e = finder.findByID(id);
-            return new ResponseEntity<>(e, HttpStatus.OK);
-        } catch (ClosestDataFinderException ex) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
     }
 
     @RequestMapping(value = "/data", method = RequestMethod.POST)
@@ -53,16 +35,42 @@ public class HTTPController {
     public ResponseEntity<Flux<EngineDataDTO>> findClosestData(
             @RequestBody EngineDataDTO data,
             @RequestParam Integer size
-    ) throws WebFluxAPIException, WebFluxAPIBadRequestException {
+    ) throws WebFluxAPIException {
+        if (size <= 0) {
+            throw new IllegalArgumentException("Requested data size must be positive");
+        }
         var e = findDataRequestHandler.find(data, size);
         return new ResponseEntity<>(e, HttpStatus.OK);
     }
 
-    @ExceptionHandler({ Exception.class })
-    public ResponseEntity<String> handleException(Exception e) {
-        if (e instanceof WebFluxAPIBadRequestException) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+    @ExceptionHandler({Exception.class})
+    public ResponseEntity<Object> handleException(Exception e) {
+        if (e instanceof WebFluxAPIException) {
+            var message = resolveFullExceptionMessage(e);
+            return new ResponseEntity<>(message, HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+
+        if (e instanceof IllegalArgumentException) {
+            var message = resolveFullExceptionMessage(e);
+            return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
+        }
+
+        return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    private String resolveFullExceptionMessage(Exception e) {
+        Throwable t = e;
+
+        var message = new StringBuilder();
+        while (t != null) {
+            if (message.length() != 0) {
+                message.append(": ");
+                message.append(System.lineSeparator());
+            }
+            message.append(t.getMessage());
+            t = t.getCause();
+        }
+
+        return message.toString();
     }
 }

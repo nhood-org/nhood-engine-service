@@ -57,7 +57,7 @@ public class FindClosestDataQueryHandlerTest {
         var query = new FindClosestDataQuery(queryKey, queryResultSize);
         assertThatThrownBy(() -> handler.handle(query))
                 .isInstanceOf(FindClosestDataQueryHandlerException.class)
-                .hasMessage("could not find data for given key")
+                .hasMessage("Could not find data for given key")
                 .hasCause(engineException);
     }
 }

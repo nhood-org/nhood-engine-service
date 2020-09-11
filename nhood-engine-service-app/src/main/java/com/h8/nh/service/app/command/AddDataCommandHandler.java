@@ -19,7 +19,7 @@ public class AddDataCommandHandler implements AddDataCommandHandlerAPI {
         try {
             repository.add(data);
         } catch (EngineDataRepositoryException e) {
-            throw new AddDataCommandHandlerException("could not add data to engine repository", e);
+            throw new AddDataCommandHandlerException("Could not add data to engine repository", e);
         }
 
         return new AddDataCommandResult();

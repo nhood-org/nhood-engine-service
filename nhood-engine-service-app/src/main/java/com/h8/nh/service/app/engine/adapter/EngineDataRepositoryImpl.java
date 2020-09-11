@@ -24,7 +24,7 @@ public class EngineDataRepositoryImpl implements EngineDataRepository {
         try {
             repository.add(resource);
         } catch (DataMatrixRepositoryFailedException e) {
-            throw new EngineDataRepositoryException("could not add resource to the repository", e);
+            throw new EngineDataRepositoryException("Could not add resource to the repository", e);
         }
     }
 }

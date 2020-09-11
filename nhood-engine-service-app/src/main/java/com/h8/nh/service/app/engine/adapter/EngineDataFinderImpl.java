@@ -35,7 +35,7 @@ public class EngineDataFinderImpl implements EngineDataFinder {
                     .collect(Collectors.toList());
         } catch (DataFinderFailedException e) {
             throw new EngineDataFinderException(
-                    "could not get result data from the engine", e);
+                    "Could not get result data from the engine", e);
         }
     }
 }

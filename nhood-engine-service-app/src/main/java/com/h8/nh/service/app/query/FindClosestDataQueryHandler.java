@@ -18,7 +18,7 @@ public class FindClosestDataQueryHandler implements FindClosestDataQueryHandlerA
             return new FindClosestDataQueryResult(results);
         } catch (EngineDataFinderException e) {
             throw new FindClosestDataQueryHandlerException(
-                    "could not find data for given key", e);
+                    "Could not find data for given key", e);
         }
     }
 }
