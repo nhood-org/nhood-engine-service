@@ -4,7 +4,7 @@
 
     <groupId>org.h8.nh</groupId>
     <artifactId>nhood-engine-service</artifactId>
-    <version>0.0.5</version>
+    <version>0.0.6-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <parent>
@@ -30,7 +30,7 @@
         <connection>scm:git:https://github.com/nhood-org/nhood-engine-service.git</connection>
         <url>http://github.com/nhood-org/nhood-engine-service</url>
         <developerConnection>scm:git:https://github.com/nhood-org/nhood-engine-service</developerConnection>
-        <tag>v0.0.5</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <repositories>
