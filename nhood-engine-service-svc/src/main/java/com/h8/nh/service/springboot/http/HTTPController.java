@@ -23,7 +23,7 @@ public class HTTPController {
     public String home() {
         return "<!DOCTYPE html><html><body>\n"
                 + "<p style=\"font-family:'Lucida Console', monospace; font-size: small;\">"
-                + appName + " : " + appVersion
+                + appName + ":" + appVersion
                 + "</p>"
                 + "</body></html>";
     }
