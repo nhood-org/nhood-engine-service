@@ -14,6 +14,12 @@ build:
 	mvn clean install
 	@echo "...done"
 
+.PHONY: build-skip-tests
+build-skip-tests:
+	@echo "Building maven artifacts:"
+	mvn clean install -DskipTests
+	@echo "...done"
+
 .PHONY: build-ci
 build-ci:
 	@test $(GITHUB_USERNAME) || ( echo "GITHUB_USERNAME not set" & exit 1 )
