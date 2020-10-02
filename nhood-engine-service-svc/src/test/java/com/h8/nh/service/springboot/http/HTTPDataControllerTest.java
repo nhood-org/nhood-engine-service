@@ -18,8 +18,8 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @ExtendWith(SpringExtension.class)
-@WebFluxTest(HTTPController.class)
-class HTTPControllerTest {
+@WebFluxTest(HTTPDataController.class)
+class HTTPDataControllerTest {
 
 	@Autowired
 	WebTestClient webTestClient;
