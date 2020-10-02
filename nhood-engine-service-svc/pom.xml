@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.h8.nh</groupId>
     <artifactId>nhood-engine-service-svc</artifactId>
-    <version>0.0.7-SNAPSHOT</version>
+    <version>0.0.7</version>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -41,7 +40,7 @@
         <dependency>
             <groupId>org.h8.nh</groupId>
             <artifactId>nhood-engine-service-ports</artifactId>
-            <version>0.0.7-SNAPSHOT</version>
+            <version>0.0.7</version>
             <scope>compile</scope>
         </dependency>
 
@@ -123,4 +122,8 @@
             </plugin>
         </plugins>
     </build>
+
+  <scm>
+    <tag>v0.0.7</tag>
+  </scm>
 </project>
