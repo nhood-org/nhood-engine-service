@@ -10,20 +10,20 @@ import java.util.UUID;
 public class EngineData {
     private final UUID uuid;
     private final BigDecimal[] key;
-    private final String data;
+    private final EngineDataReference reference;
 
-    private EngineData(UUID uuid, BigDecimal[] key, String data) {
+    private EngineData(UUID uuid, BigDecimal[] key, EngineDataReference reference) {
         this.uuid = uuid;
         this.key = Arrays.copyOf(key, key.length);
-        this.data = data;
+        this.reference = reference;
     }
 
-    public static EngineData of(BigDecimal[] key, String data) {
-        return new EngineData(null, key, data);
+    public static EngineData of(BigDecimal[] key, EngineDataReference reference) {
+        return new EngineData(null, key, reference);
     }
 
-    public static EngineData of(UUID uuid, BigDecimal[] key, String data) {
-        return new EngineData(uuid, key, data);
+    public static EngineData of(UUID uuid, BigDecimal[] key, EngineDataReference reference) {
+        return new EngineData(uuid, key, reference);
     }
 
     public UUID getUuid() {
@@ -34,7 +34,7 @@ public class EngineData {
         return Arrays.copyOf(key, key.length);
     }
 
-    public String getData() {
-        return data;
+    public EngineDataReference getReference() {
+        return reference;
     }
 }

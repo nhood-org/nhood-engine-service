@@ -6,9 +6,9 @@ import com.h8.nh.service.app.engine.EngineDataRepositoryException;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 
+import static com.h8.nh.service.app.utils.TestUtils.testEngineData;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class EngineDataRepositoryImplTest {
@@ -22,13 +22,13 @@ class EngineDataRepositoryImplTest {
         var repository = new EngineDataRepositoryImpl(wrappedRepository);
 
         var testData = Lists.list(
-                testEngineData(0, 0, 0, "DATA_0"),
-                testEngineData(1, 0, 0, "DATA_1"),
-                testEngineData(0, 1, 0, "DATA_2"),
-                testEngineData(0, 0, 1, "DATA_3"),
-                testEngineData(1, 1, 0, "DATA_4"),
-                testEngineData(1, 0, 1, "DATA_5"),
-                testEngineData(1, 1, 1, "DATA_6")
+                testEngineData(0, 0, 0, "URL_0"),
+                testEngineData(1, 0, 0, "URL_1"),
+                testEngineData(0, 1, 0, "URL_2"),
+                testEngineData(0, 0, 1, "URL_3"),
+                testEngineData(1, 1, 0, "URL_4"),
+                testEngineData(1, 0, 1, "URL_5"),
+                testEngineData(1, 1, 1, "URL_6")
         );
         for (var d : testData) {
             repository.add(d);
@@ -45,14 +45,5 @@ class EngineDataRepositoryImplTest {
         }
 
         assertThat(storedTestData).containsExactlyInAnyOrderElementsOf(testData);
-    }
-
-    private EngineData testEngineData(int v1, int v2, int v3, String data) {
-        return EngineData.of(
-                new BigDecimal[]{
-                        new BigDecimal(v1),
-                        new BigDecimal(v2),
-                        new BigDecimal(v3)
-                }, data);
     }
 }

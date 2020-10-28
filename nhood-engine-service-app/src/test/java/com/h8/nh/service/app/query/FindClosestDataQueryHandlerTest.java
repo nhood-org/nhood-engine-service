@@ -1,6 +1,5 @@
 package com.h8.nh.service.app.query;
 
-import com.h8.nh.service.app.engine.EngineData;
 import com.h8.nh.service.app.engine.EngineDataFinder;
 import com.h8.nh.service.app.engine.EngineDataFinderException;
 import org.junit.jupiter.api.Test;
@@ -8,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import java.math.BigDecimal;
 import java.util.Arrays;
 
+import static com.h8.nh.service.app.utils.TestUtils.testEngineData;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.mock;
@@ -23,10 +23,10 @@ public class FindClosestDataQueryHandlerTest {
 
         var engine = mock(EngineDataFinder.class);
         var engineData = Arrays.asList(
-                EngineData.of(new BigDecimal[]{}, "DATA_0"),
-                EngineData.of(new BigDecimal[]{}, "DATA_1"),
-                EngineData.of(new BigDecimal[]{}, "DATA_2"),
-                EngineData.of(new BigDecimal[]{}, "DATA_3")
+                testEngineData(0, 0, 0, "URL_0"),
+                testEngineData(0, 0, 0, "URL_1"),
+                testEngineData(0, 0, 0, "URL_2"),
+                testEngineData(0, 0, 0, "URL_3")
         );
         when(engine.find(queryKey, queryResultSize))
                 .thenReturn(engineData);
@@ -37,8 +37,8 @@ public class FindClosestDataQueryHandlerTest {
         var result = handler.handle(query);
 
         assertThat(result.getResults())
-                .extracting("data")
-                .containsExactlyInAnyOrder("DATA_0", "DATA_1", "DATA_2", "DATA_3");
+                .extracting("reference.url")
+                .containsExactlyInAnyOrder("URL_0", "URL_1", "URL_2", "URL_3");
     }
 
     @Test
