@@ -17,12 +17,12 @@ class AddDataCommandHandlerTest {
     @Test
     void shouldAddDataToRepository()
             throws AddDataCommandHandlerException, EngineDataRepositoryException {
-        var data = EngineData.of("ID_1", new BigDecimal[]{});
+        var data = EngineData.of(new BigDecimal[]{}, "DATA_1");
 
         var repository = mock(EngineDataRepository.class);
         var handler = new AddDataCommandHandler(repository);
 
-        var cmd = AddDataCommand.of(data.getId(), data.getKey());
+        var cmd = AddDataCommand.of(data.getKey(), data.getData());
         var cmdResult = handler.handle(cmd);
         assertThat(cmdResult).isNotNull();
 

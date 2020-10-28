@@ -23,10 +23,10 @@ public class FindClosestDataQueryHandlerTest {
 
         var engine = mock(EngineDataFinder.class);
         var engineData = Arrays.asList(
-                EngineData.of("ID_1", new BigDecimal[]{}),
-                EngineData.of("ID_2", new BigDecimal[]{}),
-                EngineData.of("ID_3", new BigDecimal[]{}),
-                EngineData.of("ID_4", new BigDecimal[]{})
+                EngineData.of(new BigDecimal[]{}, "DATA_0"),
+                EngineData.of(new BigDecimal[]{}, "DATA_1"),
+                EngineData.of(new BigDecimal[]{}, "DATA_2"),
+                EngineData.of(new BigDecimal[]{}, "DATA_3")
         );
         when(engine.find(queryKey, queryResultSize))
                 .thenReturn(engineData);
@@ -37,8 +37,8 @@ public class FindClosestDataQueryHandlerTest {
         var result = handler.handle(query);
 
         assertThat(result.getResults())
-                .extracting("id")
-                .containsExactlyInAnyOrder("ID_1", "ID_2", "ID_3", "ID_4");
+                .extracting("data")
+                .containsExactlyInAnyOrder("DATA_0", "DATA_1", "DATA_2", "DATA_3");
     }
 
     @Test

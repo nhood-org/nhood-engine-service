@@ -22,13 +22,13 @@ class EngineDataRepositoryImplTest {
         var repository = new EngineDataRepositoryImpl(wrappedRepository);
 
         var testData = Lists.list(
-                testEngineData("ID_0", 0, 0, 0),
-                testEngineData("ID_1", 1, 0, 0),
-                testEngineData("ID_2", 0, 1, 0),
-                testEngineData("ID_3", 0, 0, 1),
-                testEngineData("ID_4", 1, 1, 0),
-                testEngineData("ID_5", 1, 0, 1),
-                testEngineData("ID_6", 1, 1, 1)
+                testEngineData(0, 0, 0, "DATA_0"),
+                testEngineData(1, 0, 0, "DATA_1"),
+                testEngineData(0, 1, 0, "DATA_2"),
+                testEngineData(0, 0, 1, "DATA_3"),
+                testEngineData(1, 1, 0, "DATA_4"),
+                testEngineData(1, 0, 1, "DATA_5"),
+                testEngineData(1, 1, 1, "DATA_6")
         );
         for (var d : testData) {
             repository.add(d);
@@ -47,10 +47,12 @@ class EngineDataRepositoryImplTest {
         assertThat(storedTestData).containsExactlyInAnyOrderElementsOf(testData);
     }
 
-    private EngineData testEngineData(String id, int v1, int v2, int v3) {
-        return EngineData.of(id, new BigDecimal[]{
-                new BigDecimal(v1),
-                new BigDecimal(v2),
-                new BigDecimal(v3)});
+    private EngineData testEngineData(int v1, int v2, int v3, String data) {
+        return EngineData.of(
+                new BigDecimal[]{
+                        new BigDecimal(v1),
+                        new BigDecimal(v2),
+                        new BigDecimal(v3)
+                }, data);
     }
 }
