@@ -6,9 +6,10 @@ import com.h8.nh.service.app.engine.EngineDataRepositoryException;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.UUID;
 
+import static com.h8.nh.service.app.utils.TestUtils.testEngineData;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class EngineDataRepositoryImplTest {
@@ -22,13 +23,13 @@ class EngineDataRepositoryImplTest {
         var repository = new EngineDataRepositoryImpl(wrappedRepository);
 
         var testData = Lists.list(
-                testEngineData("ID_0", 0, 0, 0),
-                testEngineData("ID_1", 1, 0, 0),
-                testEngineData("ID_2", 0, 1, 0),
-                testEngineData("ID_3", 0, 0, 1),
-                testEngineData("ID_4", 1, 1, 0),
-                testEngineData("ID_5", 1, 0, 1),
-                testEngineData("ID_6", 1, 1, 1)
+                testEngineData(UUID.randomUUID(),0, 0, 0, "URL_0"),
+                testEngineData(UUID.randomUUID(),1, 0, 0, "URL_1"),
+                testEngineData(UUID.randomUUID(),0, 1, 0, "URL_2"),
+                testEngineData(UUID.randomUUID(),0, 0, 1, "URL_3"),
+                testEngineData(UUID.randomUUID(),1, 1, 0, "URL_4"),
+                testEngineData(UUID.randomUUID(),1, 0, 1, "URL_5"),
+                testEngineData(UUID.randomUUID(),1, 1, 1, "URL_6")
         );
         for (var d : testData) {
             repository.add(d);
@@ -47,10 +48,34 @@ class EngineDataRepositoryImplTest {
         assertThat(storedTestData).containsExactlyInAnyOrderElementsOf(testData);
     }
 
-    private EngineData testEngineData(String id, int v1, int v2, int v3) {
-        return EngineData.of(id, new BigDecimal[]{
-                new BigDecimal(v1),
-                new BigDecimal(v2),
-                new BigDecimal(v3)});
+    @Test
+    void shouldAmendAddedDataWithUUID()
+            throws EngineDataRepositoryException {
+        var testDataSize = 3;
+
+        var wrappedRepository = new DataMatrixCellBasedRepository<EngineDataResourceKey, EngineData>(testDataSize);
+        var repository = new EngineDataRepositoryImpl(wrappedRepository);
+
+        var testData = testEngineData(0, 0, 0, "URL_0");
+        repository.add(testData);
+
+        var testDataKey = EngineDataResourceKey.from(testData);
+        var testDataNeighbours = wrappedRepository.findNeighbours(testDataKey);
+
+        var storedTestData = new ArrayList<EngineData>();
+        while (testDataNeighbours.hasNext()) {
+            for (var n : testDataNeighbours.next()) {
+                storedTestData.add(n.getData());
+            }
+        }
+
+        assertThat(storedTestData).hasSize(1);
+        var expectedTestData = testEngineData(
+                storedTestData.get(0).getUuid(),
+                0, 0,0,
+                testData.getReference()
+        );
+
+        assertThat(storedTestData).containsExactly(expectedTestData);
     }
 }

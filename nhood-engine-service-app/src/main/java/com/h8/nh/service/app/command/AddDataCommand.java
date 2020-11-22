@@ -7,23 +7,23 @@ import java.util.Arrays;
 
 @EqualsAndHashCode
 public class AddDataCommand {
-    private final String id;
     private final BigDecimal[] key;
+    private final String reference;
 
-    private AddDataCommand(String id, BigDecimal[] key) {
-        this.id = id;
+    private AddDataCommand(BigDecimal[] key, String reference) {
         this.key = key;
+        this.reference = reference;
     }
 
-    public static AddDataCommand of(String id, BigDecimal[] key) {
-        return new AddDataCommand(id, key);
-    }
-
-    public String getId() {
-        return id;
+    public static AddDataCommand of(BigDecimal[] key, String reference) {
+        return new AddDataCommand(key, reference);
     }
 
     public BigDecimal[] getKey() {
         return Arrays.copyOf(key, key.length);
+    }
+
+    public String getReference() {
+        return reference;
     }
 }

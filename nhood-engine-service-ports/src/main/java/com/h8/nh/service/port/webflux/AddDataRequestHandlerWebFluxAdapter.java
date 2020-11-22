@@ -3,7 +3,10 @@ package com.h8.nh.service.port.webflux;
 import com.h8.nh.service.app.AppAPI;
 import com.h8.nh.service.app.command.AddDataCommand;
 import com.h8.nh.service.app.command.AddDataCommandHandlerException;
+import com.h8.nh.service.dto.EngineDataDTO;
 import reactor.core.publisher.Mono;
+
+import java.util.UUID;
 
 public class AddDataRequestHandlerWebFluxAdapter implements AddDataRequestHandler {
 
@@ -13,12 +16,12 @@ public class AddDataRequestHandlerWebFluxAdapter implements AddDataRequestHandle
         this.app = app;
     }
 
-    public Mono<EngineDataDTO> add(EngineDataDTO data)
+    public Mono<UUID> add(EngineDataDTO data)
             throws WebFluxAPIException {
-        var cmd = AddDataCommand.of(data.getId(), data.getBigDecimalKey());
+        var cmd = AddDataCommand.of(data.getBigDecimalKey(), data.getReference());
         try {
-            app.handle(cmd);
-            return Mono.just(data);
+            var response = app.handle(cmd);
+            return Mono.just(response.getUuid());
         } catch (AddDataCommandHandlerException e) {
             throw new WebFluxAPIException("Could not execute application add-data command", e);
         }

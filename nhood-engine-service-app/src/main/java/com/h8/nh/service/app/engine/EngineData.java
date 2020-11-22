@@ -4,26 +4,37 @@ import lombok.EqualsAndHashCode;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.UUID;
 
 @EqualsAndHashCode
 public class EngineData {
-    private final String id;
+    private final UUID uuid;
     private final BigDecimal[] key;
+    private final String reference;
 
-    private EngineData(String id, BigDecimal[] key) {
-        this.id = id;
+    private EngineData(UUID uuid, BigDecimal[] key, String reference) {
+        this.uuid = uuid;
         this.key = Arrays.copyOf(key, key.length);
+        this.reference = reference;
     }
 
-    public static EngineData of(String id, BigDecimal[] key) {
-        return new EngineData(id, key);
+    public static EngineData of(BigDecimal[] key, String reference) {
+        return new EngineData(null, key, reference);
     }
 
-    public String getId() {
-        return id;
+    public static EngineData of(UUID uuid, BigDecimal[] key, String reference) {
+        return new EngineData(uuid, key, reference);
+    }
+
+    public UUID getUuid() {
+        return uuid;
     }
 
     public BigDecimal[] getKey() {
         return Arrays.copyOf(key, key.length);
+    }
+
+    public String getReference() {
+        return reference;
     }
 }

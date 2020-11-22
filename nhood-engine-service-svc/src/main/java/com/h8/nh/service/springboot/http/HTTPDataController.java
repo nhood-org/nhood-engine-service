@@ -1,14 +1,16 @@
 package com.h8.nh.service.springboot.http;
 
+import com.h8.nh.service.dto.EngineDataDTO;
 import com.h8.nh.service.port.webflux.AddDataRequestHandler;
-import com.h8.nh.service.port.webflux.EngineDataDTO;
 import com.h8.nh.service.port.webflux.FindDataRequestHandler;
 import com.h8.nh.service.port.webflux.WebFluxAPIException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
+
+import java.net.URI;
+import java.util.UUID;
 
 @RestController
 public class HTTPDataController {
@@ -26,11 +28,16 @@ public class HTTPDataController {
 
     @RequestMapping(value = "/data", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<Mono<EngineDataDTO>> addData(
+    public ResponseEntity<?> addData(
             @RequestBody EngineDataDTO data
     ) throws WebFluxAPIException {
-        var e = addDataRequestHandler.add(data);
-        return new ResponseEntity<>(e, HttpStatus.OK);
+        var e = addDataRequestHandler.add(data).block();
+        if (e == null) {
+            return ResponseEntity.badRequest().body(null);
+        }
+
+        var eURL = URI.create("/data/" + e);
+        return ResponseEntity.created(eURL).body(null);
     }
 
     @RequestMapping(value = "/find", method = RequestMethod.POST)

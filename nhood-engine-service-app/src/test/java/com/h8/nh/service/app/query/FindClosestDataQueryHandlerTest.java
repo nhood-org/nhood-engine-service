@@ -1,13 +1,14 @@
 package com.h8.nh.service.app.query;
 
-import com.h8.nh.service.app.engine.EngineData;
 import com.h8.nh.service.app.engine.EngineDataFinder;
 import com.h8.nh.service.app.engine.EngineDataFinderException;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.UUID;
 
+import static com.h8.nh.service.app.utils.TestUtils.testEngineData;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.mock;
@@ -21,12 +22,17 @@ public class FindClosestDataQueryHandlerTest {
         var queryKey = new BigDecimal[]{};
         var queryResultSize = 4;
 
+        var uuid0 = UUID.randomUUID();
+        var uuid1 = UUID.randomUUID();
+        var uuid2 = UUID.randomUUID();
+        var uuid3 = UUID.randomUUID();
+
         var engine = mock(EngineDataFinder.class);
         var engineData = Arrays.asList(
-                EngineData.of("ID_1", new BigDecimal[]{}),
-                EngineData.of("ID_2", new BigDecimal[]{}),
-                EngineData.of("ID_3", new BigDecimal[]{}),
-                EngineData.of("ID_4", new BigDecimal[]{})
+                testEngineData(uuid0,0, 0, 0, "URL_0"),
+                testEngineData(uuid1,0, 0, 0, "URL_1"),
+                testEngineData(uuid2,0, 0, 0, "URL_2"),
+                testEngineData(uuid3,0, 0, 0, "URL_3")
         );
         when(engine.find(queryKey, queryResultSize))
                 .thenReturn(engineData);
@@ -37,8 +43,11 @@ public class FindClosestDataQueryHandlerTest {
         var result = handler.handle(query);
 
         assertThat(result.getResults())
-                .extracting("id")
-                .containsExactlyInAnyOrder("ID_1", "ID_2", "ID_3", "ID_4");
+                .extracting("uuid")
+                .containsExactlyInAnyOrder(uuid0, uuid1, uuid2, uuid3);
+        assertThat(result.getResults())
+                .extracting("reference")
+                .containsExactlyInAnyOrder("URL_0", "URL_1", "URL_2", "URL_3");
     }
 
     @Test
