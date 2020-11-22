@@ -1,6 +1,6 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Version](https://img.shields.io/badge/maven-0.0.8-blue.svg?maxAge=2592000)](https://github.com/nhood-org/repository/packages/197515)
-[![Version](https://img.shields.io/badge/docker-v0.0.8-blue.svg?maxAge=2592000)](https://github.com/nhood-org/repository/packages/197505)
+[![Version](https://img.shields.io/badge/maven-0.0.9-blue.svg?maxAge=2592000)](https://github.com/nhood-org/repository/packages/197515)
+[![Version](https://img.shields.io/badge/docker-v0.0.9-blue.svg?maxAge=2592000)](https://github.com/nhood-org/repository/packages/197505)
 [![CircleCI](https://circleci.com/gh/nhood-org/nhood-engine-service.svg?style=shield)](https://circleci.com/gh/nhood-org/nhood-engine-service)
 
 # nhood-engine-service
