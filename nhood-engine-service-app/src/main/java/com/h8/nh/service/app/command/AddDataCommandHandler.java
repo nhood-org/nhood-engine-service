@@ -1,7 +1,6 @@
 package com.h8.nh.service.app.command;
 
 import com.h8.nh.service.app.engine.EngineData;
-import com.h8.nh.service.app.engine.EngineDataReference;
 import com.h8.nh.service.app.engine.EngineDataRepository;
 import com.h8.nh.service.app.engine.EngineDataRepositoryException;
 
@@ -17,8 +16,7 @@ public class AddDataCommandHandler implements AddDataCommandHandlerAPI {
 
     public AddDataCommandResult handle(AddDataCommand command)
             throws AddDataCommandHandlerException {
-        EngineDataReference dataReference = EngineDataReference.of(command.getReference());
-        EngineData data = EngineData.of(command.getKey(), dataReference);
+        EngineData data = EngineData.of(command.getKey(), command.getReference());
 
         try {
             UUID uuid = repository.add(data);

@@ -39,7 +39,7 @@ public class EngineDataFinderImplTest {
         var result = finder.find(testData[0].getKey(), 4);
 
         assertThat(result)
-                .extracting("reference.url")
+                .extracting("reference")
                 .containsExactlyInAnyOrder("URL_0", "URL_1", "URL_2", "URL_3");
     }
 }

@@ -1,7 +1,7 @@
 package com.h8.nh.service.springboot.http;
 
+import com.h8.nh.service.dto.EngineDataDTO;
 import com.h8.nh.service.port.webflux.AddDataRequestHandler;
-import com.h8.nh.service.port.webflux.EngineDataDTO;
 import com.h8.nh.service.port.webflux.FindDataRequestHandler;
 import com.h8.nh.service.port.webflux.WebFluxAPIException;
 import org.junit.jupiter.api.Test;
@@ -16,6 +16,8 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.web.reactive.function.BodyInserters;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import java.util.UUID;
 
 @ExtendWith(SpringExtension.class)
 @WebFluxTest(HTTPDataController.class)
@@ -33,10 +35,11 @@ class HTTPDataControllerTest {
 	@Test
 	void shouldCallAddDataCommand()
 			throws WebFluxAPIException {
-		var id = "ID";
-		var dto = new EngineDataDTO(id, new String[]{"0", "0", "0"});
+		var reference = "URL";
+		var dto = new EngineDataDTO(new String[]{"0", "0", "0"}, reference);
 
-		Mono<EngineDataDTO> mono = Mono.just(dto);
+		var uuid = UUID.randomUUID();
+		Mono<UUID> mono = Mono.just(uuid);
 		Mockito.when(addDataRequestHandler.add(dto)).thenReturn(mono);
 
 		webTestClient.post()
@@ -45,9 +48,8 @@ class HTTPDataControllerTest {
 				.body(BodyInserters.fromValue(dto))
 				.accept(MediaType.APPLICATION_JSON)
 				.exchange()
-				.expectStatus().isOk()
-				.expectBody(EngineDataDTO.class)
-				.isEqualTo(dto);
+				.expectStatus().isCreated()
+				.expectHeader().valueEquals("location", "/data/" + uuid.toString());
 
 		Mockito.verify(addDataRequestHandler, Mockito.times(1)).add(dto);
 	}
@@ -55,8 +57,9 @@ class HTTPDataControllerTest {
 	@Test
 	void shouldCallFindClosestDataQuery()
 			throws WebFluxAPIException {
-		var id = "ID";
-		var dto = new EngineDataDTO(id, new String[]{"0", "0", "0"});
+		var reference = "URL";
+		var uuid = UUID.randomUUID();
+		var dto = new EngineDataDTO(uuid, new String[]{"0", "0", "0"}, reference);
 
 		var size = 1;
 
@@ -79,8 +82,8 @@ class HTTPDataControllerTest {
 	@Test
 	void shouldNotAcceptZeroResultSize()
 			throws WebFluxAPIException {
-		var id = "ID";
-		var dto = new EngineDataDTO(id, new String[]{"0", "0", "0"});
+		var reference = "URL";
+		var dto = new EngineDataDTO(new String[]{"0", "0", "0"}, reference);
 
 		var size = 0;
 
@@ -98,8 +101,8 @@ class HTTPDataControllerTest {
 	@Test
 	void shouldNotAcceptNegativeResultSize()
 			throws WebFluxAPIException {
-		var id = "ID";
-		var dto = new EngineDataDTO(id, new String[]{"0", "0", "0"});
+		var reference = "URL";
+		var dto = new EngineDataDTO(new String[]{"0", "0", "0"}, reference);
 
 		var size = -1;
 

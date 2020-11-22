@@ -15,8 +15,9 @@
 
     <modules>
         <module>nhood-engine-service-app</module>
-        <module>nhood-engine-service-svc</module>
+        <module>nhood-engine-service-dto</module>
         <module>nhood-engine-service-ports</module>
+        <module>nhood-engine-service-svc</module>
     </modules>
 
     <properties>

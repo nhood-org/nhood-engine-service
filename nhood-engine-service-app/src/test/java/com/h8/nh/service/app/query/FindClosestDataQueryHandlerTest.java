@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.UUID;
 
 import static com.h8.nh.service.app.utils.TestUtils.testEngineData;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -21,12 +22,17 @@ public class FindClosestDataQueryHandlerTest {
         var queryKey = new BigDecimal[]{};
         var queryResultSize = 4;
 
+        var uuid0 = UUID.randomUUID();
+        var uuid1 = UUID.randomUUID();
+        var uuid2 = UUID.randomUUID();
+        var uuid3 = UUID.randomUUID();
+
         var engine = mock(EngineDataFinder.class);
         var engineData = Arrays.asList(
-                testEngineData(0, 0, 0, "URL_0"),
-                testEngineData(0, 0, 0, "URL_1"),
-                testEngineData(0, 0, 0, "URL_2"),
-                testEngineData(0, 0, 0, "URL_3")
+                testEngineData(uuid0,0, 0, 0, "URL_0"),
+                testEngineData(uuid1,0, 0, 0, "URL_1"),
+                testEngineData(uuid2,0, 0, 0, "URL_2"),
+                testEngineData(uuid3,0, 0, 0, "URL_3")
         );
         when(engine.find(queryKey, queryResultSize))
                 .thenReturn(engineData);
@@ -37,7 +43,10 @@ public class FindClosestDataQueryHandlerTest {
         var result = handler.handle(query);
 
         assertThat(result.getResults())
-                .extracting("reference.url")
+                .extracting("uuid")
+                .containsExactlyInAnyOrder(uuid0, uuid1, uuid2, uuid3);
+        assertThat(result.getResults())
+                .extracting("reference")
                 .containsExactlyInAnyOrder("URL_0", "URL_1", "URL_2", "URL_3");
     }
 

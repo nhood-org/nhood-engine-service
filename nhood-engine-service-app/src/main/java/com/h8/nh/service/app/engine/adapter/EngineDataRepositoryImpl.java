@@ -19,10 +19,12 @@ public class EngineDataRepositoryImpl implements EngineDataRepository {
 
     @Override
     public UUID add(EngineData data) throws EngineDataRepositoryException {
-        var resource = DataResource.<EngineDataResourceKey, EngineData>builder()
-                .key(EngineDataResourceKey.from(data))
-                .data(data)
-                .build();
+        if (data.getUuid() == null) {
+            data = EngineData.of(UUID.randomUUID(), data.getKey(), data.getReference());
+        }
+
+        var resource = new DataResource<>(data.getUuid(), EngineDataResourceKey.from(data), data);
+
         try {
             repository.add(resource);
             return resource.getUuid();

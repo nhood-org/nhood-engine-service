@@ -3,6 +3,7 @@ package com.h8.nh.service.port.webflux;
 import com.h8.nh.service.app.AppAPI;
 import com.h8.nh.service.app.query.FindClosestDataQuery;
 import com.h8.nh.service.app.query.FindClosestDataQueryHandlerException;
+import com.h8.nh.service.dto.EngineDataDTO;
 import reactor.core.publisher.Flux;
 
 public class FindDataRequestHandlerWebFluxAdapter implements FindDataRequestHandler {
@@ -20,7 +21,11 @@ public class FindDataRequestHandlerWebFluxAdapter implements FindDataRequestHand
             var result = app.handle(query);
             var resultStream = result.getResults()
                     .stream()
-                    .map(r -> EngineDataDTO.from(r.getId(), r.getKey()));
+                    .map(r -> EngineDataDTO.from(
+                            r.getUuid(),
+                            r.getKey(),
+                            r.getReference())
+                    );
             return Flux.fromStream(resultStream);
         } catch (FindClosestDataQueryHandlerException e) {
             throw new WebFluxAPIException("Could not execute application find-closest-data query", e);

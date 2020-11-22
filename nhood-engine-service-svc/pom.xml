@@ -39,6 +39,13 @@
     <dependencies>
         <dependency>
             <groupId>org.h8.nh</groupId>
+            <artifactId>nhood-engine-service-dto</artifactId>
+            <version>0.0.9-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.h8.nh</groupId>
             <artifactId>nhood-engine-service-ports</artifactId>
             <version>0.0.9-SNAPSHOT</version>
             <scope>compile</scope>

@@ -20,7 +20,7 @@ class AddDataCommandHandlerTest {
         var repository = mock(EngineDataRepository.class);
         var handler = new AddDataCommandHandler(repository);
 
-        var cmd = AddDataCommand.of(data.getKey(), data.getReference().getUrl());
+        var cmd = AddDataCommand.of(data.getKey(), data.getReference());
         var cmdResult = handler.handle(cmd);
         assertThat(cmdResult).isNotNull();
 
