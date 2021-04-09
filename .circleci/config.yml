@@ -6,7 +6,7 @@ version: 2
 
 defaults: &defaults
   docker:
-    - image: circleci/openjdk:16-jdk
+    - image: circleci/openjdk:15-jdk
 
 jobs:
   build:
