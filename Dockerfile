@@ -13,7 +13,7 @@ RUN export GITHUB_USERNAME=$GITHUB_USERNAME && \
     mvn -s .mvn.settings.xml clean install
 
 # Application run time
-FROM openjdk:15
+FROM openjdk:16
 MAINTAINER github.com/nhood-org
 EXPOSE 8080
 

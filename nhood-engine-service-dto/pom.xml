@@ -11,7 +11,7 @@
     </parent>
 
     <properties>
-        <jackson-annotations.version>2.12.1</jackson-annotations.version>
+        <jackson-annotations.version>2.12.2</jackson-annotations.version>
     </properties>
 
     <dependencies>
