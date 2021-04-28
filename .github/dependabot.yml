@@ -1,0 +1,44 @@
+version: 2
+registries:
+  maven-repository-maven-pkg-github-com-nhood-org-repository:
+    type: maven-repository
+    url: https://maven.pkg.github.com/nhood-org/repository
+    username: krzysztofreczek
+    password: "${{secrets.MAVEN_REPOSITORY_MAVEN_PKG_GITHUB_COM_NHOOD_ORG_REPOSITORY_PASSWORD}}"
+  docker-registry-docker-pkg-github-com-5000:
+    type: docker-registry
+    url: https://docker.pkg.github.com:5000
+    username: krzysztofreczek
+    password: "${{secrets.DOCKER_REGISTRY_DOCKER_PKG_GITHUB_COM_5000_PASSWORD}}"
+
+updates:
+- package-ecosystem: maven
+  directory: "/"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: org.projectlombok:lombok
+    versions:
+    - 1.18.18
+    - 1.18.20
+  - dependency-name: org.springframework.boot:spring-boot-starter-parent
+    versions:
+    - 2.4.2
+    - 2.4.3
+  - dependency-name: io.projectreactor:reactor-core
+    versions:
+    - 3.4.3
+  registries:
+  - maven-repository-maven-pkg-github-com-nhood-org-repository
+- package-ecosystem: docker
+  directory: "/"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: openjdk
+    versions:
+    - "16"
+  registries:
+  - docker-registry-docker-pkg-github-com-5000
